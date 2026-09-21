@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Intervexa - AI Interview Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+  }
+  #root { min-height: 100vh; }
+  .app { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+  .header { text-align: center; margin-bottom: 32px; }
+  .header h1 { font-size: 28px; margin: 0; background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .header p { color: #94a3b8; margin: 6px 0 0; }
+  .card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 { margin-top: 0; font-size: 19px; }
+  label { display: block; font-size: 14px; color: #94a3b8; margin: 14px 0 6px; }
+  input[type="file"], textarea, input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  textarea.code { font-family: "SF Mono", Consolas, monospace; min-height: 220px; font-size: 13px; }
+  button {
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.secondary { background: #334155; }
+  button.icon-btn { background: #312e81; padding: 8px 14px; margin: 0; font-size: 13px; }
+  button.mic-btn { background: #7f1d1d; }
+  button.mic-btn.recording { background: #dc2626; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .row > * { flex: 1; }
+  .row.tight > * { flex: none; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .badge.topic { background: #312e81; color: #a5b4fc; }
+  .badge.difficulty { background: #4c1d95; color: #d8b4fe; }
+  .badge.pass { background: #14532d; color: #86efac; }
+  .badge.fail { background: #7f1d1d; color: #fca5a5; }
+  .question-row { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; }
+  .question-text { font-size: 17px; line-height: 1.5; flex: 1; }
+  .eval-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 14px; }
+  .eval-item { background: #0f172a; border-radius: 8px; padding: 10px; text-align: center; }
+  .eval-item .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
+  .eval-item .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .progress-bar { height: 8px; background: #334155; border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width 0.4s; }
+  .test-result { padding: 10px; border-radius: 8px; margin-bottom: 8px; font-family: monospace; font-size: 12.5px; }
+  .test-result.pass { background: #14532d33; border: 1px solid #14532d; }
+  .test-result.fail { background: #7f1d1d33; border: 1px solid #7f1d1d; }
+  .skill-tag { display: inline-block; background: #312e81; color: #a5b4fc; padding: 4px 10px; border-radius: 6px; font-size: 12.5px; margin: 3px; }
+  .skill-tag.gap { background: #7f1d1d; color: #fca5a5; }
+  .error-box { background: #7f1d1d33; border: 1px solid #7f1d1d; color: #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 13.5px; }
+  .score-big { font-size: 52px; font-weight: 800; text-align: center; margin: 4px 0; }
+  .center { text-align: center; }
+  .muted { color: #94a3b8; font-size: 13.5px; }
+  .voice-status { font-size: 12.5px; color: #a5b4fc; margin-top: 6px; }
+
+  /* ---- Landing / hero (Intervexa) ---- */
+  .hero {
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: #ffffff;
+    border-radius: 20px;
+    margin: -12px -20px;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .hero::before { content: none; }
+  .hero-title {
+    font-size: 56px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -1px;
+    color: #0f172a;
+  }
+  .hero-tagline {
+    color: #475569;
+    font-size: 17px;
+    margin: 14px 0 48px;
+    max-width: 440px;
+  }
+
+  /* Cross-browser "liquid glass" button: frosted blur + soft glow border + hover lift.
+     (Skips the experimental SVG feDisplacementMap ripple - unsupported in Chrome's
+     backdrop-filter, which would make the button invisible/broken there.) */
+  .glass-btn {
+    position: relative;
+    padding: 22px 70px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #1e1b4b;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(30,27,75,0.12);
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 0;
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.8),
+      0 8px 24px rgba(30,27,75,0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+  .glass-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.9),
+      0 12px 32px rgba(30,27,75,0.22);
+  }
+  .glass-btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .glass-btn-wrap {
+    position: relative;
+    display: inline-block;
+    filter: url(#goo);
+    padding: 110px;
+    margin: -110px;
+  }
+  .glass-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.85;
+    z-index: 0;
+    transition: background 0.6s ease;
+  }
+  .glass-btn { position: relative; z-index: 1; }
+  .app-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .app-header h1 {
+    font-size: 22px;
+    margin: 0;
+    color: #cbd5e1;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<svg style="position: absolute; width: 0; height: 0;">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+      <feColorMatrix in="blur" mode="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -11" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+    </filter>
+  </defs>
+</svg>
+<script type="text/babel" data-presets="react">
+const { useState, useRef, useEffect } = React;
+
+const API = "http://localhost:8000";
+
+// ---------------------------------------------------------------------
+// Voice helpers: play TTS audio, and record+encode a WAV clip for STT
+// ---------------------------------------------------------------------
+
+async function playQuestionAudio(text, setStatus) {
+  try {
+    setStatus && setStatus("Loading audio...");
+    const res = await fetch(`${API}/text-to-speech`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error("TTS request failed");
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    setStatus && setStatus("Playing...");
+    audio.onended = () => setStatus && setStatus("");
+    await audio.play();
+  } catch (e) {
+    setStatus && setStatus("Could not play audio (click the speaker icon to retry).");
+  }
+}
+
+// Encodes raw Float32 PCM samples (16kHz mono) into a WAV Blob.
+function encodeWAV(samples, sampleRate) {
+  const buffer = new ArrayBuffer(44 + samples.length * 2);
+  const view = new DataView(buffer);
+
+  function writeString(offset, str) {
+    for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+  }
+
+  writeString(0, "RIFF");
+  view.setUint32(4, 36 + samples.length * 2, true);
+  writeString(8, "WAVE");
+  writeString(12, "fmt ");
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true); // PCM
+  view.setUint16(22, 1, true); // mono
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, "data");
+  view.setUint32(40, samples.length * 2, true);
+
+  let offset = 44;
+  for (let i = 0; i < samples.length; i++, offset += 2) {
+    const s = Math.max(-1, Math.min(1, samples[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+  }
+
+  return new Blob([view], { type: "audio/wav" });
+}
+
+// Downsamples a Float32Array from one sample rate to another (simple linear interpolation).
+function downsample(buffer, fromRate, toRate) {
+  if (toRate === fromRate) return buffer;
+  const ratio = fromRate / toRate;
+  const newLength = Math.round(buffer.length / ratio);
+  const result = new Float32Array(newLength);
+  for (let i = 0; i < newLength; i++) {
+    result[i] = buffer[Math.round(i * ratio)] || 0;
+  }
+  return result;
+}
+
+function useVoiceRecorder(onTranscribed) {
+  const [recording, setRecording] = useState(false);
+  const [status, setStatus] = useState("");
+  const audioCtxRef = useRef(null);
+  const processorRef = useRef(null);
+  const sourceRef = useRef(null);
+  const streamRef = useRef(null);
+  const samplesRef = useRef([]);
+
+  async function start() {
+    try {
+      setStatus("Requesting microphone...");
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      audioCtxRef.current = audioCtx;
+      const source = audioCtx.createMediaStreamSource(stream);
+      sourceRef.current = source;
+
+      const processor = audioCtx.createScriptProcessor(4096, 1, 1);
+      processorRef.current = processor;
+      samplesRef.current = [];
+
+      processor.onaudioprocess = (e) => {
+        const input = e.inputBuffer.getChannelData(0);
+        samplesRef.current.push(new Float32Array(input));
+      };
+
+      source.connect(processor);
+      processor.connect(audioCtx.destination);
+
+      setRecording(true);
+      setStatus("Recording... click again to stop");
+    } catch (e) {
+      setStatus("Microphone access denied or unavailable.");
+    }
+  }
+
+  async function stop() {
+    setRecording(false);
+    setStatus("Processing audio...");
+
+    processorRef.current && processorRef.current.disconnect();
+    sourceRef.current && sourceRef.current.disconnect();
+    streamRef.current && streamRef.current.getTracks().forEach((t) => t.stop());
+
+    const originalRate = audioCtxRef.current.sampleRate;
+    const totalLength = samplesRef.current.reduce((sum, arr) => sum + arr.length, 0);
+    const merged = new Float32Array(totalLength);
+    let offset = 0;
+    for (const chunk of samplesRef.current) {
+      merged.set(chunk, offset);
+      offset += chunk.length;
+    }
+
+    const downsampled = downsample(merged, originalRate, 16000);
+    const wavBlob = encodeWAV(downsampled, 16000);
+
+    audioCtxRef.current && audioCtxRef.current.close();
+
+    try {
+      const formData = new FormData();
+      formData.append("file", wavBlob, "answer.wav");
+      const res = await fetch(`${API}/speech-to-text`, { method: "POST", body: formData });
+      if (!res.ok) throw new Error("Speech recognition failed");
+      const data = await res.json();
+      setStatus(data.text ? "" : "Didn't catch that - try again.");
+      if (data.text) onTranscribed(data.text);
+    } catch (e) {
+      setStatus("Speech recognition failed - check the server terminal.");
+    }
+  }
+
+  function toggle() {
+    if (recording) stop();
+    else start();
+  }
+
+  return { recording, status, toggle };
+}
+
+// ---------------------------------------------------------------------
+
+function ErrorBox({ message }) {
+  if (!message) return null;
+  return <div className="error-box">{message}</div>;
+}
+
+function UploadScreen({ onStarted }) {
+  const [resumeFile, setResumeFile] = useState(null);
+  const [jdFile, setJdFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleStart() {
+    if (!resumeFile || !jdFile) {
+      setError("Please select both a resume PDF and a job description PDF.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const resumeForm = new FormData();
+      resumeForm.append("file", resumeFile);
+      const resumeRes = await fetch(`${API}/upload-resume`, { method: "POST", body: resumeForm });
+      if (!resumeRes.ok) throw new Error("Resume upload failed - check the server terminal for details.");
+      const resumeData = await resumeRes.json();
+
+      const jdForm = new FormData();
+      jdForm.append("file", jdFile);
+      const jdRes = await fetch(`${API}/upload-jd?candidate_id=${resumeData.candidate_id}`, { method: "POST", body: jdForm });
+      if (!jdRes.ok) throw new Error("JD upload failed - check the server terminal for details.");
+      const jdData = await jdRes.json();
+
+      const startRes = await fetch(`${API}/start-interview`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          candidate_id: resumeData.candidate_id,
+          resume_text: resumeData.resume_text_preview || "",
+          jd_text: jdData.jd_text_preview || "",
+        }),
+      });
+      if (!startRes.ok) throw new Error("Starting the interview failed - check the server terminal for details.");
+      const startData = await startRes.json();
+
+      onStarted({
+        candidateId: resumeData.candidate_id,
+        sessionId: startData.session_id,
+        profile: startData.profile,
+        question: startData.question,
+      });
+    } catch (e) {
+      setError(e.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="card">
+      <h2>Start Your Interview</h2>
+      <p className="muted">Upload your resume and the job description you're preparing for.</p>
+      <ErrorBox message={error} />
+      <label>Resume (PDF)</label>
+      <input type="file" accept="application/pdf" onChange={(e) => setResumeFile(e.target.files[0])} />
+      <label>Job Description (PDF)</label>
+      <input type="file" accept="application/pdf" onChange={(e) => setJdFile(e.target.files[0])} />
+      <button onClick={handleStart} disabled={loading}>
+        {loading ? "Analyzing your profile..." : "Start Interview"}
+      </button>
+    </div>
+  );
+}
+
+function ProfileSummary({ profile }) {
+  if (!profile) return null;
+  return (
+    <div className="card">
+      <h2>Your Profile</h2>
+      <div className="muted" style={{ marginBottom: 8 }}>Experience level: {profile.experience_level}</div>
+      <div style={{ marginBottom: 10 }}>
+        {profile.candidate_skills && profile.candidate_skills.map((s, i) => (
+          <span className="skill-tag" key={i}>{s}</span>
+        ))}
+      </div>
+      <div className="muted" style={{ marginBottom: 6 }}>Skill gaps for this role:</div>
+      <div>
+        {profile.skill_gaps && profile.skill_gaps.map((s, i) => (
+          <span className="skill-tag gap" key={i}>{s}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [lastEval, setLastEval] = useState(null);
+  const [voiceStatus, setVoiceStatus] = useState("");
+
+  const recorder = useVoiceRecorder((text) => {
+    setAnswer((prev) => (prev ? prev + " " + text : text));
+  });
+
+  // Auto-play the question aloud whenever it changes
+  useEffect(() => {
+    playQuestionAudio(session.question.text, setVoiceStatus);
+  }, [session.question.id]);
+
+  async function handleSubmit() {
+    if (!answer.trim()) {
+      setError("Please write or record an answer before submitting.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API}/answer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: session.sessionId,
+          candidate_id: session.candidateId,
+          question_id: session.question.id,
+          question_text: session.question.text,
+          answer_text: answer,
+        }),
+      });
+      if (!res.ok) throw new Error("Submitting your answer failed - check the server terminal for details.");
+      const data = await res.json();
+      setLastEval(data.evaluation);
+      setAnswer("");
+
+      if (data.status === "completed") {
+        onDone();
+      } else {
+        onUpdate({ ...session, question: data.next_question });
+      }
+    } catch (e) {
+      setError(e.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const q = session.question;
+
+  return (
+    <div className="card">
+      <div>
+        <span className="badge topic">{q.topic}</span>
+        <span className="badge difficulty">Difficulty {q.difficulty}/5</span>
+      </div>
+      <div className="question-row">
+        <div className="question-text">{q.text}</div>
+        <button className="icon-btn" onClick={() => playQuestionAudio(q.text, setVoiceStatus)} title="Replay question audio">
+          🔊
+        </button>
+      </div>
+      {voiceStatus && <div className="voice-status">{voiceStatus}</div>}
+      <ErrorBox message={error} />
+      <textarea
+        placeholder="Type your answer, or click the mic to speak it..."
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+      />
+      <div className="row tight">
+        <button
+          className={`mic-btn ${recorder.recording ? "recording" : ""}`}
+          onClick={recorder.toggle}
+        >
+          {recorder.recording ? "⏹ Stop Recording" : "🎤 Record Answer"}
+        </button>
+      </div>
+      {recorder.status && <div className="voice-status">{recorder.status}</div>}
+      <div className="row">
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Evaluating..." : "Submit Answer"}
+        </button>
+        <button className="secondary" onClick={onGoToCoding} disabled={loading}>
+          Switch to Coding Round
+        </button>
+      </div>
+
+      {lastEval && (
+        <div style={{ marginTop: 22, borderTop: "1px solid #334155", paddingTop: 18 }}>
+          <div className="muted">Last answer evaluation</div>
+          <div className="eval-grid">
+            <div className="eval-item"><div className="label">Technical</div><div className="value">{lastEval.technical_accuracy}</div></div>
+            <div className="eval-item"><div className="label">Depth</div><div className="value">{lastEval.depth}</div></div>
+            <div className="eval-item"><div className="label">Comms</div><div className="value">{lastEval.communication}</div></div>
+            <div className="eval-item"><div className="label">Overall</div><div className="value">{lastEval.overall}</div></div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CodingScreen({ session, onBackToQA, onDone }) {
+  const [problem, setProblem] = useState(null);
+  const [code, setCode] = useState("# Read input with input(), print output with print()\n");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [result, setResult] = useState(null);
+
+  async function loadProblem() {
+    setLoading(true);
+    setError("");
+    setResult(null);
+    try {
+      const res = await fetch(`${API}/next-coding-problem/${session.candidateId}/${session.sessionId}`);
+      const data = await res.json();
+      if (data.message) {
+        setProblem(null);
+        setError(data.message);
+      } else {
+        setProblem(data);
+        setCode("# Read input with input(), print output with print()\n");
+      }
+    } catch (e) {
+      setError("Could not load a coding problem - check the server terminal.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => { loadProblem(); }, []);
+
+  async function handleSubmit() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API}/submit-code`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: session.sessionId,
+          candidate_id: session.candidateId,
+          problem_id: problem.id,
+          source_code: code,
+          language: "python",
+        }),
+      });
+      if (!res.ok) throw new Error("Code submission failed - check the server terminal.");
+      const data = await res.json();
+      setResult(data);
+    } catch (e) {
+      setError(e.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="card">
+      <div className="row" style={{ alignItems: "center", marginBottom: 6 }}>
+        <h2 style={{ margin: 0 }}>Coding Round</h2>
+      </div>
+      <ErrorBox message={error} />
+
+      {problem && (
+        <React.Fragment>
+          <div>
+            <span className="badge topic">{problem.topic}</span>
+            <span className="badge difficulty">Difficulty {problem.difficulty}/5</span>
+          </div>
+          <div className="question-text" style={{ fontSize: 15, whiteSpace: "pre-wrap" }}>{problem.description}</div>
+          <label>Your Python solution (read via input(), print via print())</label>
+          <textarea className="code" value={code} onChange={(e) => setCode(e.target.value)} spellCheck="false" />
+          <div className="row">
+            <button onClick={handleSubmit} disabled={loading}>{loading ? "Running your code..." : "Run & Submit"}</button>
+            <button className="secondary" onClick={loadProblem} disabled={loading}>Skip to Next Problem</button>
+          </div>
+        </React.Fragment>
+      )}
+
+      {result && (
+        <div style={{ marginTop: 22, borderTop: "1px solid #334155", paddingTop: 18 }}>
+          <div className="muted">Score: {result.score}/100 ({result.passed}/{result.total} test cases passed)</div>
+          {result.test_results.map((t, i) => (
+            <div key={i} className={`test-result ${t.passed ? "pass" : "fail"}`}>
+              <span className={`badge ${t.passed ? "pass" : "fail"}`}>{t.passed ? "PASS" : "FAIL"}</span>
+              input: {JSON.stringify(t.stdin)} | expected: {JSON.stringify(t.expected)} | got: {JSON.stringify(t.actual)}
+              {t.stderr && <div style={{ color: "#fca5a5", marginTop: 4 }}>error: {t.stderr}</div>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="row" style={{ marginTop: 18 }}>
+        <button className="secondary" onClick={onBackToQA}>Back to Q&A</button>
+        <button className="secondary" onClick={onDone}>Finish Interview & See Report</button>
+      </div>
+    </div>
+  );
+}
+
+function ReportScreen({ session }) {
+  const [report, setReport] = useState(null);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch(`${API}/final-report/${session.candidateId}/${session.sessionId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Could not load the final report.");
+        return res.json();
+      })
+      .then(setReport)
+      .catch((e) => setError(e.message));
+  }, []);
+
+  if (error) return <div className="card"><ErrorBox message={error} /></div>;
+  if (!report) return <div className="card center muted">Loading your report...</div>;
+
+  return (
+    <React.Fragment>
+      <div className="card center">
+        <div className="muted">Overall Readiness</div>
+        <div className="score-big">{report.overall_readiness}%</div>
+        <div className="progress-bar"><div className="progress-fill" style={{ width: `${report.overall_readiness}%` }} /></div>
+        <div className="muted">{report.questions_answered} questions answered</div>
+      </div>
+
+      <div className="card">
+        <h2>Skill Gaps to Focus On</h2>
+        {report.skill_gaps.length === 0 && <div className="muted">No major gaps identified - nice work.</div>}
+        {report.skill_gaps.map((s, i) => <span className="skill-tag gap" key={i}>{s}</span>)}
+      </div>
+
+      <div className="card">
+        <h2>Question-by-Question History</h2>
+        {report.history.map((h, i) => (
+          <div key={i} style={{ marginBottom: 18, paddingBottom: 16, borderBottom: i < report.history.length - 1 ? "1px solid #334155" : "none" }}>
+            <div className="question-text" style={{ fontSize: 15 }}>{h.question_text}</div>
+            <div className="eval-grid">
+              <div className="eval-item"><div className="label">Overall</div><div className="value">{h.evaluation.overall}</div></div>
+              <div className="eval-item"><div className="label">Difficulty</div><div className="value">{h.difficulty}</div></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </React.Fragment>
+  );
+}
+
+const SNAKE_COLORS = ["#3b82f6", "#ec4899", "#22c55e", "#f59e0b", "#8b5cf6"]; // blue, pink, green, amber, violet
+const SEGMENT_COUNT = 10;
+
+function LandingScreen({ onGetStarted }) {
+  const wrapRef = useRef(null);
+  const segRefs = useRef(Array.from({ length: SEGMENT_COUNT }, () => null));
+  const mouse = useRef({ x: 130, y: 40 });
+  const pos = useRef(Array.from({ length: SEGMENT_COUNT }, () => ({ x: 130, y: 40 })));
+  const prevPos = useRef(Array.from({ length: SEGMENT_COUNT }, () => ({ x: 130, y: 40 })));
+
+  const [colorIdx, setColorIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setColorIdx((i) => (i + 1) % SNAKE_COLORS.length), 2200);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    let frame;
+    // Each segment chases the one ahead of it (segment 0 chases the mouse),
+    // with speed decreasing down the chain - the classic "snake" trail setup.
+    function animate() {
+      for (let i = 0; i < SEGMENT_COUNT; i++) {
+        const target = i === 0 ? mouse.current : pos.current[i - 1];
+        const speed = 0.35 - i * 0.02;
+        prevPos.current[i] = { ...pos.current[i] };
+        pos.current[i].x += (target.x - pos.current[i].x) * Math.max(speed, 0.12);
+        pos.current[i].y += (target.y - pos.current[i].y) * Math.max(speed, 0.12);
+
+        const dx = pos.current[i].x - prevPos.current[i].x;
+        const dy = pos.current[i].y - prevPos.current[i].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        const stretch = 1 + Math.min(dist, 30) / 10;
+
+        const el = segRefs.current[i];
+        if (el) {
+          el.style.transform =
+            `translate(${pos.current[i].x - 24}px, ${pos.current[i].y - 24}px) rotate(${angle}deg) scaleX(${stretch})`;
+        }
+      }
+      frame = requestAnimationFrame(animate);
+    }
+    animate();
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  function handleMouseMove(e) {
+    const rect = wrapRef.current.getBoundingClientRect();
+    mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  const currentColor = SNAKE_COLORS[colorIdx];
+
+  return (
+    <div className="hero">
+      <div className="glass-btn-wrap" ref={wrapRef} onMouseMove={handleMouseMove}>
+        {Array.from({ length: SEGMENT_COUNT }).map((_, i) => {
+          // Head segments are bigger, tapering down toward the tail
+          const size = 48 - i * 2.4;
+          return (
+            <div
+              key={i}
+              ref={(el) => (segRefs.current[i] = el)}
+              className="glass-blob"
+              style={{
+                top: 0,
+                left: 0,
+                width: `${size}px`,
+                height: `${size}px`,
+                background: currentColor,
+              }}
+            />
+          );
+        })}
+        <button className="glass-btn" onClick={onGetStarted}>Intervexa</button>
+      </div>
+    </div>
+  );
+}
+
+function LoginScreen({ onAuthenticated }) {
+  const [mode, setMode] = useState("login"); // login | signup
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit() {
+    if (!email.trim() || !password.trim() || (mode === "signup" && !name.trim())) {
+      setError("Please fill in all fields.");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const endpoint = mode === "signup" ? "/signup" : "/login";
+      const body = mode === "signup" ? { name, email, password } : { email, password };
+      const res = await fetch(`${API}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Something went wrong.");
+
+      localStorage.setItem("intervexa_token", data.token);
+      localStorage.setItem("intervexa_name", data.name);
+      onAuthenticated({ name: data.name, email: data.email, token: data.token });
+    } catch (e) {
+      setError(e.message || "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="card" style={{ maxWidth: 420, margin: "60px auto" }}>
+      <h2>{mode === "login" ? "Log In" : "Create Your Account"}</h2>
+      <ErrorBox message={error} />
+
+      {mode === "signup" && (
+        <React.Fragment>
+          <label>Name</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        </React.Fragment>
+      )}
+      <label>Email</label>
+      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <label>Password</label>
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+      <button onClick={handleSubmit} disabled={loading} style={{ width: "100%" }}>
+        {loading ? "Please wait..." : mode === "login" ? "Log In" : "Sign Up"}
+      </button>
+
+      <div className="muted center" style={{ marginTop: 16, cursor: "pointer" }}
+           onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); }}>
+        {mode === "login" ? "Don't have an account? Sign up" : "Already have an account? Log in"}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
+  const [screen, setScreen] = useState("landing"); // landing | login | upload | qa | coding | report
+
+  return (
+    <div className="app">
+      {screen !== "landing" && (
+        <div className="app-header">
+          <h1>Intervexa</h1>
+        </div>
+      )}
+
+      {screen === "landing" && (
+        <LandingScreen onGetStarted={() => setScreen("login")} />
+      )}
+
+      {screen === "login" && (
+        <LoginScreen onAuthenticated={(u) => { setUser(u); setScreen("upload"); }} />
+      )}
+
+      {screen === "upload" && (
+        <UploadScreen
+          onStarted={(s) => { setSession(s); setScreen("qa"); }}
+        />
+      )}
+
+      {screen !== "upload" && session && session.profile && screen === "qa" && (
+        <ProfileSummary profile={session.profile} />
+      )}
+
+      {screen === "qa" && session && (
+        <InterviewScreen
+          session={session}
+          onUpdate={setSession}
+          onDone={() => setScreen("report")}
+          onGoToCoding={() => setScreen("coding")}
+        />
+      )}
+
+      {screen === "coding" && session && (
+        <CodingScreen
+          session={session}
+          onBackToQA={() => setScreen("qa")}
+          onDone={() => setScreen("report")}
+        />
+      )}
+
+      {screen === "report" && session && (
+        <ReportScreen session={session} />
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
