@@ -1,0 +1,2550 @@
+[
+  {
+    "id": "q_b02b78191b76b4c9",
+    "topic": "HR",
+    "difficulty": 1,
+    "text": "Tell me about yourself.",
+    "expected_concepts": [
+      "background",
+      "relevant experience",
+      "career motivation"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "046169357d81e2fb885a26b7612c7af4abd2e32610827f305d51c5db37de2f7d",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.651870+00:00",
+    "updated_at": "2026-09-22T08:55:24.651870+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f068dc4d3da72962",
+    "topic": "HR",
+    "difficulty": 1,
+    "text": "Why do you want to work in this role?",
+    "expected_concepts": [
+      "role fit",
+      "genuine interest",
+      "career alignment"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "95bac9169b762d63357557a4076bb361c3d7a82f0b147cec9d775272fbbba134",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.652861+00:00",
+    "updated_at": "2026-09-22T08:55:24.652861+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_580ea91faf289435",
+    "topic": "HR",
+    "difficulty": 2,
+    "text": "Tell me about a time you disagreed with a teammate. How did you resolve it?",
+    "expected_concepts": [
+      "conflict resolution",
+      "communication",
+      "compromise"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "32380521148bf059eb0b292c16d086bbcbdb484d9207ed6d6eb38dc2f2485e1a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.653713+00:00",
+    "updated_at": "2026-09-22T08:55:24.653713+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_5b1b54cc13023706",
+    "topic": "HR",
+    "difficulty": 2,
+    "text": "Describe a project or task you're most proud of and why.",
+    "expected_concepts": [
+      "ownership",
+      "impact",
+      "specific contribution"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "7841abde7cbafa6f4a89cc75f7d31cc3c125d50c1d712e380564af392203cec1",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.654456+00:00",
+    "updated_at": "2026-09-22T08:55:24.654456+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_78a5be3f62849d83",
+    "topic": "HR",
+    "difficulty": 2,
+    "text": "How do you prioritize tasks when working on multiple things at once?",
+    "expected_concepts": [
+      "time management",
+      "prioritization framework",
+      "communication with stakeholders"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "e2f798c6fcea9f45558f5edd31ba76f2d8bc2b0eb126e6e976f10b1100aa6fae",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.655196+00:00",
+    "updated_at": "2026-09-22T08:55:24.655196+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ee335642a0c40b5c",
+    "topic": "HR",
+    "difficulty": 3,
+    "text": "Tell me about a time you made a mistake at work. What did you do?",
+    "expected_concepts": [
+      "accountability",
+      "root cause",
+      "corrective action"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a548f010695e01c394ea8a8992247653f2c09a06d9bf869d12e81d5d5f7a4d35",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.655938+00:00",
+    "updated_at": "2026-09-22T08:55:24.655938+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_cc16fd16890e11cf",
+    "topic": "HR",
+    "difficulty": 1,
+    "text": "Where do you see yourself in three years?",
+    "expected_concepts": [
+      "career growth",
+      "realistic goals",
+      "alignment with role"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "cdfbfc0ad48f58556bfc8cb39babf08830405fa625a1ffc4675331c47b2d53bd",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.656694+00:00",
+    "updated_at": "2026-09-22T08:55:24.656694+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ee9b15acd6aa9fb6",
+    "topic": "HR",
+    "difficulty": 2,
+    "text": "How do you handle receiving critical feedback on your work?",
+    "expected_concepts": [
+      "openness to feedback",
+      "growth mindset",
+      "specific example"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8e79a5a6fff4ccebf4346a281fb7c75eefca3ecbd2abf983b19e549d13f97b90",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.657494+00:00",
+    "updated_at": "2026-09-22T08:55:24.657494+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f7263cc715469438",
+    "topic": "HR",
+    "difficulty": 2,
+    "text": "Describe a time you had to work under significant pressure or a tight deadline.",
+    "expected_concepts": [
+      "stress management",
+      "prioritization",
+      "outcome"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "31e7637f999133224fe9415c9c7e22d7b2079690f8fba7f95601df5ffaeb8dbc",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.658285+00:00",
+    "updated_at": "2026-09-22T08:55:24.658285+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0e315aa5034efd93",
+    "topic": "HR",
+    "difficulty": 3,
+    "text": "Tell me about a time you had to persuade someone who initially disagreed with you.",
+    "expected_concepts": [
+      "persuasion",
+      "evidence-based argument",
+      "outcome"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "f4f86cfe57fcaa22e28dd296d591f58e50561c5d716f706e8cabe64b8fce3c62",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.659118+00:00",
+    "updated_at": "2026-09-22T08:55:24.659118+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_905827bc8445630b",
+    "topic": "SQL",
+    "difficulty": 1,
+    "text": "What is the difference between WHERE and HAVING clauses?",
+    "expected_concepts": [
+      "WHERE filters rows before grouping",
+      "HAVING filters after GROUP BY",
+      "aggregate functions"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "e6546fca821d66958c41d2c37beebb213dbb1c3c628022e6c149629dc54097d7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.659938+00:00",
+    "updated_at": "2026-09-22T08:55:24.659938+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d56ed9ec0e9c67c9",
+    "topic": "SQL",
+    "difficulty": 1,
+    "text": "Explain the difference between INNER JOIN and LEFT JOIN.",
+    "expected_concepts": [
+      "INNER JOIN returns matching rows only",
+      "LEFT JOIN keeps all left table rows",
+      "NULLs for unmatched"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "427e6fe64fa95f7f47f6247fa7f821f7526789a9ab5631cd59c3ca9716b7272e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.660783+00:00",
+    "updated_at": "2026-09-22T08:55:24.660783+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_731f0bde29d34a58",
+    "topic": "SQL",
+    "difficulty": 2,
+    "text": "What is a primary key vs a foreign key?",
+    "expected_concepts": [
+      "primary key uniquely identifies a row",
+      "foreign key references another table",
+      "referential integrity"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "feba10401beeed14e1979adcd144e089661f3b831e1894f97e60f9617c9fc8c0",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.661636+00:00",
+    "updated_at": "2026-09-22T08:55:24.661636+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0faae1598fa28602",
+    "topic": "SQL",
+    "difficulty": 2,
+    "text": "Write a query to find the second-highest salary from an Employees table.",
+    "expected_concepts": [
+      "subquery or LIMIT/OFFSET",
+      "DISTINCT",
+      "ORDER BY"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8325933e8709f0d9b0dd9ad94b22a86155665c404d678c3c2e23a6ca5529f2c5",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.662704+00:00",
+    "updated_at": "2026-09-22T08:55:24.662704+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_c579f18a7047a126",
+    "topic": "SQL",
+    "difficulty": 3,
+    "text": "What's the difference between a clustered and non-clustered index?",
+    "expected_concepts": [
+      "clustered index determines physical row order",
+      "non-clustered index is a separate structure",
+      "impact on read/write performance"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "fe525a1e8bf00b6a8913831916bb0c7884ac62b383a06d32e331536c44905950",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.663759+00:00",
+    "updated_at": "2026-09-22T08:55:24.663759+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_97bbefcf62dc59cd",
+    "topic": "SQL",
+    "difficulty": 3,
+    "text": "You have a table with duplicate rows. How would you identify and remove them?",
+    "expected_concepts": [
+      "GROUP BY / ROW_NUMBER()",
+      "DELETE with subquery",
+      "defining what counts as duplicate"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "0db4fb960b8dd1d829fb8dbe1c2808b2f441f02d800c482776ad5224c366cef7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.664885+00:00",
+    "updated_at": "2026-09-22T08:55:24.664885+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_96bd5d720dccb2dd",
+    "topic": "SQL",
+    "difficulty": 4,
+    "text": "Explain how query execution plans work and how you'd use one to optimize a slow query.",
+    "expected_concepts": [
+      "EXPLAIN / execution plan",
+      "identifying full table scans",
+      "index usage"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "54e751141070f869d1a2665f1534d8106c4f65c774faac56524fd9cf3bcea291",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.665895+00:00",
+    "updated_at": "2026-09-22T08:55:24.665895+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_88569be04a9c3e8c",
+    "topic": "SQL",
+    "difficulty": 2,
+    "text": "What is normalization, and why is it used?",
+    "expected_concepts": [
+      "reducing data redundancy",
+      "1NF/2NF/3NF",
+      "data integrity"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "112b51e4e9c65a6af52a03902b5c633e2b28c154aa8a03685603d6d1dd57ffa6",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.666885+00:00",
+    "updated_at": "2026-09-22T08:55:24.666885+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_b0739c456f8d05f4",
+    "topic": "SQL",
+    "difficulty": 3,
+    "text": "Given a table with StudentID, StudentName, CourseID, CourseName - what normalization problem could occur here?",
+    "expected_concepts": [
+      "update anomaly",
+      "redundant CourseName per row",
+      "splitting into separate tables"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "236601e11cec39e53aff12ddd806f024d4e4647cc43068389d327b26d990ac81",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.667979+00:00",
+    "updated_at": "2026-09-22T08:55:24.667979+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_4e94fcae7681963f",
+    "topic": "SQL",
+    "difficulty": 2,
+    "text": "What's the difference between UNION and UNION ALL?",
+    "expected_concepts": [
+      "UNION removes duplicates",
+      "UNION ALL keeps duplicates",
+      "performance implications"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6e54ffd6d3cbd3023ad4f4399bc3f3427f09b2a9ff636e089e4bd53b1c00ba3a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.669268+00:00",
+    "updated_at": "2026-09-22T08:55:24.669268+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_4a8707a059b5edb0",
+    "topic": "Python",
+    "difficulty": 1,
+    "text": "What is the difference between a list and a tuple in Python?",
+    "expected_concepts": [
+      "lists are mutable",
+      "tuples are immutable",
+      "use cases for each"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "24c01d1fc4b2825b942589c44e292b1c9fe6b6b52d2bd4b6a6bce58822595baf",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.670323+00:00",
+    "updated_at": "2026-09-22T08:55:24.670323+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_3bad53ab1868b9ae",
+    "topic": "Python",
+    "difficulty": 2,
+    "text": "How would you handle missing values in a pandas DataFrame?",
+    "expected_concepts": [
+      "dropna()",
+      "fillna()",
+      "deciding based on context/data type"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "5bfcb47265bf1461c8fda40ed97f992815b388146ae522d57947e8d4c6eee764",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.671480+00:00",
+    "updated_at": "2026-09-22T08:55:24.671480+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_92c7e0b414792123",
+    "topic": "Python",
+    "difficulty": 2,
+    "text": "What's the difference between loc and iloc in pandas?",
+    "expected_concepts": [
+      "loc uses labels",
+      "iloc uses integer positions",
+      "example use case"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "300f228f34a5b2060e7c9a77adb6b5938ac2b942d5104a43e0979b0b1fee6e0b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.672742+00:00",
+    "updated_at": "2026-09-22T08:55:24.672742+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6383ff98d30721d1",
+    "topic": "Python",
+    "difficulty": 3,
+    "text": "Explain how you would merge two DataFrames with different key column names.",
+    "expected_concepts": [
+      "pd.merge with left_on/right_on",
+      "join type (inner/outer/left)",
+      "handling mismatched keys"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "04c8748d30b51c23a53218bc359e2fc79fe2abbba7b757e70df9239792936205",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.673918+00:00",
+    "updated_at": "2026-09-22T08:55:24.673918+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_7636b10cb81bee6d",
+    "topic": "Python",
+    "difficulty": 3,
+    "text": "What is the difference between a shallow copy and a deep copy?",
+    "expected_concepts": [
+      "shallow copy references nested objects",
+      "deep copy fully duplicates",
+      "copy module / deepcopy()"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "58e431212dbed0674d7c77ee97dc156f26019edaf336a9e473a10423576d8f74",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.677920+00:00",
+    "updated_at": "2026-09-22T08:55:24.677920+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_a36bdc9a46cb76da",
+    "topic": "Python",
+    "difficulty": 2,
+    "text": "How do list comprehensions work, and why might you use one instead of a for loop?",
+    "expected_concepts": [
+      "concise syntax",
+      "readability",
+      "performance for simple transformations"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "9b268301eda952cf08556a9c7fc1ea322ccc262f799de4d71d5887b4592ee0ae",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.679187+00:00",
+    "updated_at": "2026-09-22T08:55:24.679187+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_87f4c8ff4aa8a104",
+    "topic": "Python",
+    "difficulty": 4,
+    "text": "How would you optimize a pandas operation that's running slowly on a large dataset?",
+    "expected_concepts": [
+      "vectorization over apply/loops",
+      "avoiding iterrows",
+      "chunking or dtype optimization"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "ad1ec6e79246d8063dd7456054eea063d6b8d107a19f2f8fa69396888e565d02",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.680439+00:00",
+    "updated_at": "2026-09-22T08:55:24.680439+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d2eb2d05a1f4d4f0",
+    "topic": "Python",
+    "difficulty": 1,
+    "text": "What is a dictionary in Python and when would you use one?",
+    "expected_concepts": [
+      "key-value pairs",
+      "fast lookups",
+      "use case example"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "dbf2014bf63bf7a2da84c0ac598b87ab35caeae6831dff3dc16fa3720e836fd3",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.681778+00:00",
+    "updated_at": "2026-09-22T08:55:24.681778+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_dc72630a538f923b",
+    "topic": "Data Analysis",
+    "difficulty": 2,
+    "text": "Can you describe a situation where you had to analyze a dataset? What steps did you take to ensure your analysis was accurate and meaningful?",
+    "expected_concepts": [
+      "data cleaning",
+      "validation steps",
+      "clear conclusion tied to a business question"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "4c2d303b540a2ec6e63dea718bb6e9a1092f0c2424bfd3d5e5446fd152f6426b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.682986+00:00",
+    "updated_at": "2026-09-22T08:55:24.682986+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ab888182b33f2363",
+    "topic": "Data Analysis",
+    "difficulty": 2,
+    "text": "What steps would you take to clean a messy dataset before analysis?",
+    "expected_concepts": [
+      "handling missing values",
+      "removing duplicates",
+      "checking data types/outliers"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "063f46b6c24136aa4b9631dac17ae513928edd54134777fb056a1b43fbde81a2",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.684226+00:00",
+    "updated_at": "2026-09-22T08:55:24.684226+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_94787704d9aef2df",
+    "topic": "Data Analysis",
+    "difficulty": 3,
+    "text": "How do you decide which chart type to use for a given dataset?",
+    "expected_concepts": [
+      "matching chart to data type",
+      "categorical vs numerical",
+      "avoiding misleading visuals"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "688a3acfd4f73d5ce183101e1e4f08b41e0d26541b4cae455528a668203e76d9",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.685505+00:00",
+    "updated_at": "2026-09-22T08:55:24.685505+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ae49ee9691ff5e6d",
+    "topic": "Data Analysis",
+    "difficulty": 3,
+    "text": "What is the difference between correlation and causation, and why does it matter in analysis?",
+    "expected_concepts": [
+      "correlation doesn't imply causation",
+      "confounding variables",
+      "example of a misleading correlation"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a8a5b7b8158e81c1d2c693cae4089a2c570a9363413a707d10ce850befeca64a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.686763+00:00",
+    "updated_at": "2026-09-22T08:55:24.686763+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_bb0fafcb76cb6654",
+    "topic": "Data Analysis",
+    "difficulty": 2,
+    "text": "What is an outlier, and how would you decide whether to remove one from your analysis?",
+    "expected_concepts": [
+      "definition of an outlier",
+      "statistical vs domain judgment",
+      "impact on results"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "03a6d564eabb79806eabadd66a2257948703f270e7bc11c35a8c8528fe5ab346",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.688146+00:00",
+    "updated_at": "2026-09-22T08:55:24.688146+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_733d3dc377a2730f",
+    "topic": "Data Analysis",
+    "difficulty": 4,
+    "text": "How would you design an A/B test to measure the impact of a new feature?",
+    "expected_concepts": [
+      "control vs treatment group",
+      "sample size/significance",
+      "avoiding confounding factors"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "60f161499e74ec0ab3b9451dbbac845786470c8510a7f4aaa63f55ec6fc8b266",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.689434+00:00",
+    "updated_at": "2026-09-22T08:55:24.689434+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d411172d16b3699f",
+    "topic": "Data Analysis",
+    "difficulty": 3,
+    "text": "Explain the difference between mean, median, and mode, and when each is most useful.",
+    "expected_concepts": [
+      "definitions",
+      "sensitivity to outliers",
+      "appropriate use cases"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "0e4e76186da9270bdd9c27431e4df4a027c492db40337e7136efc59c0d0d78da",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.690773+00:00",
+    "updated_at": "2026-09-22T08:55:24.690773+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_16109d9f9f6138df",
+    "topic": "Data Analysis",
+    "difficulty": 3,
+    "text": "What is statistical significance, and how would you explain a p-value to a non-technical stakeholder?",
+    "expected_concepts": [
+      "p-value definition",
+      "significance threshold",
+      "plain-language explanation"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "3fea73f343a54d52cd5f703571ab1a71eaf0ba30aada58233f5e1462ac31523e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.692104+00:00",
+    "updated_at": "2026-09-22T08:55:24.692104+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6ae07c26023647d2",
+    "topic": "Data Analysis",
+    "difficulty": 2,
+    "text": "How would you present your findings to a stakeholder with no technical background?",
+    "expected_concepts": [
+      "simplifying jargon",
+      "visualizations over raw numbers",
+      "focusing on business impact"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "e1b2cedc52cfdf66a389544720898b8bab2db6da2a32642b70833ccf602965bf",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.693557+00:00",
+    "updated_at": "2026-09-22T08:55:24.693557+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6a536d3e86873c21",
+    "topic": "Data Analysis",
+    "difficulty": 4,
+    "text": "How would you detect and handle bias in a dataset before drawing conclusions from it?",
+    "expected_concepts": [
+      "sampling bias",
+      "representation checks",
+      "mitigation strategies"
+    ],
+    "domain": "Data Analysis",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "ef13f18a2fed1181db317a329a58073d12d22341d5e0a33151439f1f06d56878",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.695249+00:00",
+    "updated_at": "2026-09-22T08:55:24.695249+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_1dcb71ede9e089d2",
+    "topic": "DBMS",
+    "difficulty": 2,
+    "text": "Explain normalization in DBMS.",
+    "expected_concepts": [
+      "reducing redundancy",
+      "1NF/2NF/3NF",
+      "data integrity"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "de8d9bebecb94fd3ef7b8c2c994d5cb6729df5c74b1f839cc0324a12f88eec28",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.696733+00:00",
+    "updated_at": "2026-09-22T08:55:24.696733+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_3f7621532d3ed6d8",
+    "topic": "DBMS",
+    "difficulty": 2,
+    "text": "What is a transaction, and what do the ACID properties mean?",
+    "expected_concepts": [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "fbd3bdf4c0e6b90d6e99179a0de62aaf90e3dd82632992d5cae52b309062b490",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.698156+00:00",
+    "updated_at": "2026-09-22T08:55:24.698156+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_152cc22ffe7625fb",
+    "topic": "DBMS",
+    "difficulty": 3,
+    "text": "What is the difference between OLTP and OLAP systems?",
+    "expected_concepts": [
+      "OLTP for transactional workloads",
+      "OLAP for analytical workloads",
+      "example use cases"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "cfac0a08dd67a2dc475d6defeb335ee596d2e6e65c0296b3725bff6ef6f21c47",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.699602+00:00",
+    "updated_at": "2026-09-22T08:55:24.699602+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_1500f9aa1994638e",
+    "topic": "DBMS",
+    "difficulty": 3,
+    "text": "What is a deadlock in a database, and how can it be avoided?",
+    "expected_concepts": [
+      "circular resource wait",
+      "lock ordering",
+      "timeout/detection mechanisms"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "7e5cfd3908cc64402eeb09747b8d6b1ebec4c8adc4e4d7fa085321c429695621",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.701026+00:00",
+    "updated_at": "2026-09-22T08:55:24.701026+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_809118f4485e04a1",
+    "topic": "DBMS",
+    "difficulty": 2,
+    "text": "What is the difference between a database and a data warehouse?",
+    "expected_concepts": [
+      "operational vs analytical purpose",
+      "schema differences",
+      "typical use cases"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "ace114752c7341871b662028af55034d4bea447c53cd1eadd1ac799fea9391bb",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.702483+00:00",
+    "updated_at": "2026-09-22T08:55:24.702483+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_351aff12256ee393",
+    "topic": "DBMS",
+    "difficulty": 4,
+    "text": "How would you design a schema for a system that needs to track user orders and order items efficiently?",
+    "expected_concepts": [
+      "separate orders/order_items tables",
+      "foreign key relationships",
+      "normalization trade-offs"
+    ],
+    "domain": "SQL",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "799c0edadb4076f77dca9b97d6ff3b4e7daff59c2b004e5e56282b09377b7982",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.703946+00:00",
+    "updated_at": "2026-09-22T08:55:24.703946+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ba4bbe2be801bafb",
+    "topic": "Java",
+    "difficulty": 2,
+    "text": "Explain how HashMap works internally in Java.",
+    "expected_concepts": [
+      "hashing",
+      "buckets",
+      "collision handling",
+      "hashCode/equals"
+    ],
+    "domain": "Java",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "1c80f77dd3bd3412e46c1c5f8de5f3021278e3201bbb86e32db02bb026629f52",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.705416+00:00",
+    "updated_at": "2026-09-22T08:55:24.705416+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_8f2b69ec2ca68f6c",
+    "topic": "Java",
+    "difficulty": 3,
+    "text": "What happens when two keys have the same hash in a HashMap?",
+    "expected_concepts": [
+      "collision",
+      "chaining/treeification",
+      "equals() comparison"
+    ],
+    "domain": "Java",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "3922bd4843d450acb24f229482fa4d4bdc201cd97d78b81cd2fddc00cd48aca5",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.706894+00:00",
+    "updated_at": "2026-09-22T08:55:24.706894+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_77d6798a14eee606",
+    "topic": "Java",
+    "difficulty": 2,
+    "text": "What is the difference between an ArrayList and a LinkedList?",
+    "expected_concepts": [
+      "array-backed vs node-backed",
+      "access time trade-offs",
+      "insertion/deletion cost"
+    ],
+    "domain": "Java",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "ee06495eca0f0165709d22877755aea39a3163622c3892d8f11f2387f962d66b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.708363+00:00",
+    "updated_at": "2026-09-22T08:55:24.708363+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_5ff12cef067a9256",
+    "topic": "Java",
+    "difficulty": 2,
+    "text": "What is the difference between an abstract class and an interface in Java?",
+    "expected_concepts": [
+      "multiple inheritance via interfaces",
+      "partial implementation in abstract classes",
+      "when to use each"
+    ],
+    "domain": "Java",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "4163f64f0fad7b96067f488cbdb4bb18e2f165003747470045eb99913a4d2800",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.710108+00:00",
+    "updated_at": "2026-09-22T08:55:24.710108+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_eaeed65f7be48174",
+    "topic": "Java",
+    "difficulty": 3,
+    "text": "Explain the concept of garbage collection in Java.",
+    "expected_concepts": [
+      "automatic memory management",
+      "generational GC",
+      "when objects become eligible"
+    ],
+    "domain": "Java",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6ba88af5072b3d7a36a38b625957c98ca03530d544e15a378a09db7fb582f538",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.712323+00:00",
+    "updated_at": "2026-09-22T08:55:24.712323+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_2bb1b8a5dfbb8ac1",
+    "topic": "DSA",
+    "difficulty": 2,
+    "text": "What is the time complexity of binary search, and what precondition does it require?",
+    "expected_concepts": [
+      "O(log n)",
+      "sorted array requirement",
+      "divide and conquer"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "91df364fba644d76e431cf51599772421e032954f7e2990da175bbf69794d84c",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.714060+00:00",
+    "updated_at": "2026-09-22T08:55:24.714060+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d51cb69d2324dcb5",
+    "topic": "DSA",
+    "difficulty": 3,
+    "text": "How would you detect a cycle in a linked list?",
+    "expected_concepts": [
+      "Floyd's cycle detection (slow/fast pointers)",
+      "hash set approach",
+      "time/space trade-offs"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d6653a75251d65f3e9d39e21c095f81abf0dd96f531cd2b94e4eb0cb2d8e22af",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.715846+00:00",
+    "updated_at": "2026-09-22T08:55:24.715846+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_80a4cd33b77fc812",
+    "topic": "DSA",
+    "difficulty": 3,
+    "text": "Explain the difference between a stack and a queue, with a real-world use case for each.",
+    "expected_concepts": [
+      "LIFO vs FIFO",
+      "stack use case (undo, call stack)",
+      "queue use case (task scheduling)"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "0f72494aa8e29fa509d5f745cdcade8f70989d41f5ddcddf23f5494e73681fb6",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.717519+00:00",
+    "updated_at": "2026-09-22T08:55:24.717519+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_a44c8d890516af93",
+    "topic": "DSA",
+    "difficulty": 4,
+    "text": "Given an array of integers, how would you find two numbers that add up to a target value, efficiently?",
+    "expected_concepts": [
+      "hashmap approach for O(n)",
+      "brute force O(n^2) baseline",
+      "trade-off explanation"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "514788e37cc18d5324b77b2f2ad06c5ac8348ec82072a9238bfbe5857a9aa1ad",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.719205+00:00",
+    "updated_at": "2026-09-22T08:55:24.719205+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ba40423c6bfc7de8",
+    "topic": "DSA",
+    "difficulty": 2,
+    "text": "What is recursion, and what is a base case?",
+    "expected_concepts": [
+      "function calling itself",
+      "base case to stop recursion",
+      "stack usage"
+    ],
+    "domain": "Python",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "75272391b3f5a6a3610504f5b35452673153aecc89e3dcefb94582f5f7e35ecf",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.720899+00:00",
+    "updated_at": "2026-09-22T08:55:24.720899+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_3d608c245a1b2026",
+    "topic": "Nursing",
+    "difficulty": 1,
+    "text": "Why did you choose a career in nursing/healthcare?",
+    "expected_concepts": [
+      "genuine motivation",
+      "patient care values",
+      "personal connection"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "c204ac493fd49f5f04461b8dcc0deca223d5e730207179add8ed32e3b11043f4",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.722678+00:00",
+    "updated_at": "2026-09-22T08:55:24.722678+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_30d7d5f9adea6212",
+    "topic": "Nursing",
+    "difficulty": 2,
+    "text": "Describe a time you had to handle a difficult or distressed patient or family member.",
+    "expected_concepts": [
+      "empathy",
+      "de-escalation",
+      "professionalism under stress"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "66b322a5b56c382132c4b79bfa448cef5c8b6620852d2bdef2a418dcb7be7ce8",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.724546+00:00",
+    "updated_at": "2026-09-22T08:55:24.724546+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_567799c2f688304c",
+    "topic": "Nursing",
+    "difficulty": 2,
+    "text": "How do you prioritize care when you have multiple patients needing attention at once?",
+    "expected_concepts": [
+      "triage/prioritization by severity",
+      "time management",
+      "teamwork with colleagues"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "e12ba9f318837fef19919f6ba4d73c4f4d59420a280fdf6ca58215b5036da6a7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.726814+00:00",
+    "updated_at": "2026-09-22T08:55:24.726814+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_906698e58446bb22",
+    "topic": "Nursing",
+    "difficulty": 3,
+    "text": "Walk me through the steps you'd take if you noticed a medication error was about to happen.",
+    "expected_concepts": [
+      "stopping the error",
+      "verification protocols",
+      "reporting/documentation"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "875d2d226f4a62166b28b907cb1efa0d25756ff41c93e62689b0b0e6ffe0841e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.728846+00:00",
+    "updated_at": "2026-09-22T08:55:24.728846+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_266b9bc08bb08473",
+    "topic": "Nursing",
+    "difficulty": 2,
+    "text": "How do you ensure patient confidentiality and privacy in your daily work?",
+    "expected_concepts": [
+      "HIPAA/privacy principles",
+      "secure handling of records",
+      "discretion in conversations"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "62a2287e0ed270a8fa62bad27a9b620858eaa911c9a7150e4c16fbee5198b3fc",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.730874+00:00",
+    "updated_at": "2026-09-22T08:55:24.730874+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_7d42ce23e340fb7c",
+    "topic": "Nursing",
+    "difficulty": 3,
+    "text": "How do you stay calm and effective during a medical emergency?",
+    "expected_concepts": [
+      "following protocol",
+      "clear communication with team",
+      "staying composed under pressure"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a9bf88dacd309ee989e88dee0abb781aa77fb1673c0c64bbadf730ba3bac8a45",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.732797+00:00",
+    "updated_at": "2026-09-22T08:55:24.732797+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_4724ab2f5f7a1f87",
+    "topic": "Nursing",
+    "difficulty": 2,
+    "text": "How do you communicate complex medical information to a patient or family in a way they can understand?",
+    "expected_concepts": [
+      "avoiding jargon",
+      "checking understanding",
+      "empathy in delivery"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "42a65d90e20b05ad7d2ae5900d5226d3142da33bde94a76c9fc8471251ac094c",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.734662+00:00",
+    "updated_at": "2026-09-22T08:55:24.734662+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_61fce806077e9ff7",
+    "topic": "Nursing",
+    "difficulty": 1,
+    "text": "What does patient-centered care mean to you?",
+    "expected_concepts": [
+      "individualized care",
+      "respecting patient preferences",
+      "holistic approach"
+    ],
+    "domain": "Nursing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8e4bbba44754603ba53cbc59a87b73c292b825aea2c78ff3cb806835ff7f461a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.736568+00:00",
+    "updated_at": "2026-09-22T08:55:24.736568+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_cd24249eeea46bd5",
+    "topic": "Finance",
+    "difficulty": 1,
+    "text": "What interests you about working in finance/accounting?",
+    "expected_concepts": [
+      "genuine motivation",
+      "analytical interest",
+      "career alignment"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8d5eea18e167e4a5e557b9827d9e3c41b2eff8a755766ef5d629681f27b2fc62",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.738606+00:00",
+    "updated_at": "2026-09-22T08:55:24.738606+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_58ba129aac200c75",
+    "topic": "Finance",
+    "difficulty": 2,
+    "text": "What is the difference between a balance sheet and an income statement?",
+    "expected_concepts": [
+      "balance sheet shows financial position at a point in time",
+      "income statement shows performance over a period",
+      "what each includes"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "3cd6769ab8f3bfef34bcae79b4abaa31c00d317642bba8f5d6aa9624cd828e1b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.740838+00:00",
+    "updated_at": "2026-09-22T08:55:24.740838+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ca24114309807c69",
+    "topic": "Finance",
+    "difficulty": 2,
+    "text": "Explain the concept of accounts payable vs accounts receivable.",
+    "expected_concepts": [
+      "AP = money owed by the company",
+      "AR = money owed to the company",
+      "impact on cash flow"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d1f2055f981c0536f99238f8aad9929596b2dcc09c003dc2b1077ed345752eb7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.743148+00:00",
+    "updated_at": "2026-09-22T08:55:24.743148+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_56dfbd4c00fc6e35",
+    "topic": "Finance",
+    "difficulty": 3,
+    "text": "How would you detect a discrepancy while reconciling two financial statements?",
+    "expected_concepts": [
+      "systematic comparison",
+      "identifying timing differences",
+      "documentation of findings"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "daaafe71646b3a142f2dda05228ba394fa29cf2801ad2568f9108d525a5b2865",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.745450+00:00",
+    "updated_at": "2026-09-22T08:55:24.745450+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_b66600499623ffdb",
+    "topic": "Finance",
+    "difficulty": 3,
+    "text": "What is the time value of money, and why does it matter in financial decision-making?",
+    "expected_concepts": [
+      "money today is worth more than in future",
+      "discounting/present value",
+      "application in investment decisions"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "111810827850b92c3498227c05badb32617fa280e64bdda884849fde5b2edcb3",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.747535+00:00",
+    "updated_at": "2026-09-22T08:55:24.747535+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_9c7a736621ce4935",
+    "topic": "Finance",
+    "difficulty": 2,
+    "text": "How would you explain a budget variance to a non-financial manager?",
+    "expected_concepts": [
+      "plain-language explanation",
+      "actual vs budgeted comparison",
+      "root cause of variance"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "00f2c089fc463ed0b90dfda7bceab8b9ae6e1b309470c94a55c1c89febd84a2d",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.749598+00:00",
+    "updated_at": "2026-09-22T08:55:24.749598+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_8aae04f7c5f9f2f0",
+    "topic": "Finance",
+    "difficulty": 4,
+    "text": "How would you assess whether a company is in good financial health using its financial statements?",
+    "expected_concepts": [
+      "liquidity ratios",
+      "profitability ratios",
+      "debt/leverage ratios"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "b3f9f8c33522a7b9c9d09894d81adbd97a2f0b949eb8e90180a19d428ae40752",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.752096+00:00",
+    "updated_at": "2026-09-22T08:55:24.752096+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_3aad19da4a7ff76c",
+    "topic": "Finance",
+    "difficulty": 2,
+    "text": "What steps would you take if you found an error in a client's financial records?",
+    "expected_concepts": [
+      "verification before acting",
+      "proper correction process",
+      "communication with relevant parties"
+    ],
+    "domain": "Finance",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "64a1021be19df96558d51c24e9a880c59b952796b201ec0cf23fc02b2a1cc078",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.754437+00:00",
+    "updated_at": "2026-09-22T08:55:24.754437+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_e00d224df83edcfc",
+    "topic": "Mechanical Engineering",
+    "difficulty": 2,
+    "text": "Explain the difference between stress and strain in materials.",
+    "expected_concepts": [
+      "stress = force per unit area",
+      "strain = deformation relative to original size",
+      "relationship via elasticity"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "fbe5b8e4f35e406af88838d7ad17e0df76b747ea55d5d159917ca19a43f086cb",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.756872+00:00",
+    "updated_at": "2026-09-22T08:55:24.756872+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_869dda764f8442a0",
+    "topic": "Mechanical Engineering",
+    "difficulty": 2,
+    "text": "What is the difference between kinetic and potential energy, with a real-world example?",
+    "expected_concepts": [
+      "definitions",
+      "conservation of energy",
+      "practical example"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a0927ab82934d63c2447fbf369961f1d4d6df99daa491bc8e79634d086e0003e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.760092+00:00",
+    "updated_at": "2026-09-22T08:55:24.760092+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_68e60843bec66b8d",
+    "topic": "Mechanical Engineering",
+    "difficulty": 3,
+    "text": "Walk me through how you would approach diagnosing a mechanical failure in a system.",
+    "expected_concepts": [
+      "systematic root-cause analysis",
+      "inspection/testing steps",
+      "documentation"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "72f56a1e8f1408a5c867f93cb79f4817ea3c5f53ad4cdee141b363f083e29d5f",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.762581+00:00",
+    "updated_at": "2026-09-22T08:55:24.762581+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_e1712105092ec259",
+    "topic": "Mechanical Engineering",
+    "difficulty": 3,
+    "text": "What factors would you consider when selecting a material for a load-bearing component?",
+    "expected_concepts": [
+      "strength requirements",
+      "cost",
+      "environmental/corrosion resistance"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "88e243ab9967f8eb098df77a89dbc2c0c79d352b1c9911b18a66fb2551403b13",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.765151+00:00",
+    "updated_at": "2026-09-22T08:55:24.765151+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_fd4588513a24d131",
+    "topic": "Mechanical Engineering",
+    "difficulty": 2,
+    "text": "What is the purpose of a factor of safety in mechanical design?",
+    "expected_concepts": [
+      "margin against failure",
+      "accounting for uncertainty",
+      "typical application"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "53bd443524e8d11b152b5c220cbe182bcd682835cce3dc2b466249f66b65babb",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.767465+00:00",
+    "updated_at": "2026-09-22T08:55:24.767465+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_3068ef69395e04a6",
+    "topic": "Mechanical Engineering",
+    "difficulty": 4,
+    "text": "How would you approach optimizing a design for both cost and performance?",
+    "expected_concepts": [
+      "trade-off analysis",
+      "iterative design/testing",
+      "balancing constraints"
+    ],
+    "domain": "Mechanical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "23ec7ca11531480cb48df59c18c37d1ae034970f15a17db7138f66b887945175",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.769652+00:00",
+    "updated_at": "2026-09-22T08:55:24.769652+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_7894bc66696a142d",
+    "topic": "Civil Engineering",
+    "difficulty": 2,
+    "text": "What factors would you consider when selecting a site for a construction project?",
+    "expected_concepts": [
+      "soil conditions",
+      "environmental impact",
+      "accessibility/logistics"
+    ],
+    "domain": "Civil Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "39b1fee5bb9d17be1216d74f214fcfb07ddbc7eb42f59973b78027519c8e122b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.771889+00:00",
+    "updated_at": "2026-09-22T08:55:24.771889+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_cc7010465316fc84",
+    "topic": "Civil Engineering",
+    "difficulty": 3,
+    "text": "Explain the importance of load calculations in structural design.",
+    "expected_concepts": [
+      "dead load vs live load",
+      "safety margins",
+      "consequences of miscalculation"
+    ],
+    "domain": "Civil Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "f726ccc3e0598a99b34b5ef03cbf2a63da48ddd9434b42887f76de93ae7b7618",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.774312+00:00",
+    "updated_at": "2026-09-22T08:55:24.774312+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_763464573790dcfe",
+    "topic": "Civil Engineering",
+    "difficulty": 2,
+    "text": "What steps would you take to ensure quality control on a construction site?",
+    "expected_concepts": [
+      "material testing",
+      "regular inspections",
+      "adherence to specifications"
+    ],
+    "domain": "Civil Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "025b3b3ef33e183626b20420f89fcc31044559b393ee76af13379f14dae61643",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.776946+00:00",
+    "updated_at": "2026-09-22T08:55:24.776946+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_50e02accfe12f738",
+    "topic": "Civil Engineering",
+    "difficulty": 3,
+    "text": "How would you handle a situation where a project is falling behind schedule?",
+    "expected_concepts": [
+      "identifying bottlenecks",
+      "resource reallocation",
+      "stakeholder communication"
+    ],
+    "domain": "Civil Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "26a5af9112416b0600aff1859a800b91bb8a7c21b5b63a08e5eb0de7123c3e97",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.779623+00:00",
+    "updated_at": "2026-09-22T08:55:24.779623+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_c0b4338141771760",
+    "topic": "Civil Engineering",
+    "difficulty": 2,
+    "text": "What is the difference between reinforced concrete and plain concrete, and why does it matter?",
+    "expected_concepts": [
+      "tensile strength via rebar",
+      "use cases",
+      "structural implications"
+    ],
+    "domain": "Civil Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d6489c90adaa59ee25f66547cb4bff9b25ba5305566971786b3799691fe699c7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.782032+00:00",
+    "updated_at": "2026-09-22T08:55:24.782032+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_68ff53e032b1b9f8",
+    "topic": "Electrical Engineering",
+    "difficulty": 2,
+    "text": "Explain Ohm's Law and its practical significance.",
+    "expected_concepts": [
+      "V = IR",
+      "relationship between voltage, current, resistance",
+      "practical application"
+    ],
+    "domain": "Electrical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "3b93e5a5157f6daa0f874a1e2e77a5ba7b58342e7b7f0f515198181f9d68d8cc",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.784439+00:00",
+    "updated_at": "2026-09-22T08:55:24.784439+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_4077a153272e395e",
+    "topic": "Electrical Engineering",
+    "difficulty": 2,
+    "text": "What is the difference between AC and DC current?",
+    "expected_concepts": [
+      "AC alternates direction",
+      "DC flows in one direction",
+      "use cases for each"
+    ],
+    "domain": "Electrical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a065c2e9c8523f4de80dc809f548f6f67f6c9b0e3b905ffbd343faf79a4f2259",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.787033+00:00",
+    "updated_at": "2026-09-22T08:55:24.787033+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_475125806f3bfdf0",
+    "topic": "Electrical Engineering",
+    "difficulty": 3,
+    "text": "How would you troubleshoot a circuit that isn't functioning as expected?",
+    "expected_concepts": [
+      "systematic testing (multimeter)",
+      "isolating the faulty component",
+      "verifying against design"
+    ],
+    "domain": "Electrical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8ce5710b2e142c8ddaf63be18bdbeecd21307dbc3a27477ed33ae4a6b781cf8a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.789675+00:00",
+    "updated_at": "2026-09-22T08:55:24.789675+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_34f34dcadeca1e35",
+    "topic": "Electrical Engineering",
+    "difficulty": 3,
+    "text": "What safety precautions are essential when working with high-voltage systems?",
+    "expected_concepts": [
+      "lockout/tagout procedures",
+      "PPE",
+      "de-energizing before work"
+    ],
+    "domain": "Electrical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "65a333f0276fd05aafbd62414a08c975912b00846ba201cea03b661274dd55a9",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.792335+00:00",
+    "updated_at": "2026-09-22T08:55:24.792335+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ae4eb6f2aa390a4c",
+    "topic": "Electrical Engineering",
+    "difficulty": 4,
+    "text": "How would you approach designing a circuit to meet both power efficiency and cost constraints?",
+    "expected_concepts": [
+      "component selection trade-offs",
+      "efficiency calculations",
+      "iterative testing"
+    ],
+    "domain": "Electrical Engineering",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "38545b5312359409abc900a1658d2ef9cc7645e60a13f328f391148e62107a1e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.794810+00:00",
+    "updated_at": "2026-09-22T08:55:24.794810+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0b986b69fb462194",
+    "topic": "Teaching",
+    "difficulty": 1,
+    "text": "Why did you choose a career in teaching/education?",
+    "expected_concepts": [
+      "genuine motivation",
+      "passion for the subject",
+      "impact on students"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "8b0916144146a12689ebbab0145fbfde075dbf15f37c5859aea50969e30b253c",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.797596+00:00",
+    "updated_at": "2026-09-22T08:55:24.797596+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f695e827709cc993",
+    "topic": "Teaching",
+    "difficulty": 2,
+    "text": "How do you adapt your teaching style for students with different learning needs?",
+    "expected_concepts": [
+      "differentiated instruction",
+      "recognizing individual needs",
+      "specific example"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "c2a70a7c9c2bc8d62b891de8c1e73329a3457f2d2864d453873475a8fcd4083e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.800359+00:00",
+    "updated_at": "2026-09-22T08:55:24.800359+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_5198632059bec84a",
+    "topic": "Teaching",
+    "difficulty": 2,
+    "text": "Describe a time a lesson didn't go as planned. What did you do?",
+    "expected_concepts": [
+      "adaptability",
+      "reflection",
+      "adjustment mid-lesson"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6d49c7489e36acc5373d3be696e6abf86f460ddf191fb80e18eb0cf939304b55",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.802871+00:00",
+    "updated_at": "2026-09-22T08:55:24.802871+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_1bd25312ea42e564",
+    "topic": "Teaching",
+    "difficulty": 3,
+    "text": "How do you handle a disruptive student in the classroom?",
+    "expected_concepts": [
+      "de-escalation",
+      "consistent boundaries",
+      "addressing root cause"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "c90e1c24da33ae621153c890037b1edb667a8f6425202545f342cded91396212",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.805500+00:00",
+    "updated_at": "2026-09-22T08:55:24.805500+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_426e2d0a69aca419",
+    "topic": "Teaching",
+    "difficulty": 2,
+    "text": "How do you assess whether students have actually understood a concept, beyond just test scores?",
+    "expected_concepts": [
+      "formative assessment",
+      "in-class questioning",
+      "practical application checks"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "9d0cebd2ad9cbe5a64931d4fa6bf158f0c5166f99cbcfcc5ab652fea51c57ed1",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.808247+00:00",
+    "updated_at": "2026-09-22T08:55:24.808247+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_8d5c8085ab2a30b0",
+    "topic": "Teaching",
+    "difficulty": 3,
+    "text": "How would you communicate a student's struggles to a concerned parent?",
+    "expected_concepts": [
+      "clear and empathetic communication",
+      "focus on constructive next steps",
+      "collaboration with parent"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "b437da6c09d606a19c8948f93116abe517fad67c0c79c40dbe863fa0a7b6f6fa",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.810800+00:00",
+    "updated_at": "2026-09-22T08:55:24.810800+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_cc0e8e5b0faf0a22",
+    "topic": "Teaching",
+    "difficulty": 2,
+    "text": "How do you keep students engaged during a long or challenging lesson?",
+    "expected_concepts": [
+      "interactive techniques",
+      "varying activities",
+      "relating content to real life"
+    ],
+    "domain": "Teaching",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6534c2b04e6923cc57c1923c73e890817527d970c6db7f1608549f7cea73f8c7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.813807+00:00",
+    "updated_at": "2026-09-22T08:55:24.813807+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_36d16bac2011a5af",
+    "topic": "Aviation",
+    "difficulty": 1,
+    "text": "Why are you interested in a career in aviation?",
+    "expected_concepts": [
+      "genuine motivation",
+      "interest in the industry",
+      "career fit"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "90f42f795dd1012502125146aac9d7213de2c9399516b292bda199240a502af7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.816776+00:00",
+    "updated_at": "2026-09-22T08:55:24.816776+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_ddf0b585a2f251e5",
+    "topic": "Aviation",
+    "difficulty": 2,
+    "text": "How would you handle an anxious or difficult passenger during a flight?",
+    "expected_concepts": [
+      "calm communication",
+      "de-escalation",
+      "following safety protocol"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "1ceff859691bc971c4b5ad3e7cd373673e18e0bc4418c5f09ec249761f528954",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.819805+00:00",
+    "updated_at": "2026-09-22T08:55:24.819805+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_72bde94578ca29b6",
+    "topic": "Aviation",
+    "difficulty": 3,
+    "text": "Describe how you would respond in an emergency situation onboard.",
+    "expected_concepts": [
+      "following trained procedures",
+      "staying calm",
+      "clear communication with crew/passengers"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "57c356010bb61e1f96c907f6f92214e1b6881f9f3fe24d1234f93c2af2b4540f",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.823762+00:00",
+    "updated_at": "2026-09-22T08:55:24.823762+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_9631bea89f33c7d6",
+    "topic": "Aviation",
+    "difficulty": 2,
+    "text": "How do you ensure strict adherence to safety checklists and procedures under time pressure?",
+    "expected_concepts": [
+      "discipline in following checklists",
+      "not skipping steps despite pressure",
+      "double-checking critical items"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6b926f81f27816fd2b945b87c0c020c65811921a5a2da37ad78328f0ef025712",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.826428+00:00",
+    "updated_at": "2026-09-22T08:55:24.826428+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_9d0464da05b60feb",
+    "topic": "Aviation",
+    "difficulty": 2,
+    "text": "How would you handle a scheduling conflict or last-minute operational change?",
+    "expected_concepts": [
+      "adaptability",
+      "clear communication with team",
+      "prioritizing safety/compliance"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "73db1225cf11baa938d24b29c423342da7551ccdb1a6d94dfe09dd88dea34f0d",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.829004+00:00",
+    "updated_at": "2026-09-22T08:55:24.829004+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f544a6a30b970c78",
+    "topic": "Aviation",
+    "difficulty": 3,
+    "text": "What steps would you take if you noticed a safety concern that others seemed to be overlooking?",
+    "expected_concepts": [
+      "speaking up despite hierarchy",
+      "following reporting procedures",
+      "prioritizing safety over convenience"
+    ],
+    "domain": "Aviation",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "70b9840318dd35608f35e2ca8e265cab48cd693875a0241a2975b50c71b9fdae",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.831499+00:00",
+    "updated_at": "2026-09-22T08:55:24.831499+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0cb6aeeb3d3f04be",
+    "topic": "HR Recruitment",
+    "difficulty": 2,
+    "text": "How would you evaluate whether a candidate is a good cultural fit for a team?",
+    "expected_concepts": [
+      "behavioral interview techniques",
+      "alignment with values",
+      "avoiding bias"
+    ],
+    "domain": "HR Recruitment",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d4634b871821a20d8f107c03ccba3d9176a2bf4c50eeb1c8e73ca6109de8f39a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.833991+00:00",
+    "updated_at": "2026-09-22T08:55:24.833991+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_98a9a94824926cfd",
+    "topic": "HR Recruitment",
+    "difficulty": 2,
+    "text": "How do you handle a situation where a hiring manager wants to reject a strong candidate for a vague reason?",
+    "expected_concepts": [
+      "asking clarifying questions",
+      "advocating with data",
+      "balancing manager's authority and fairness"
+    ],
+    "domain": "HR Recruitment",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "03da8824b524442b64edc662d3f4b235e8c4b2e7493ac5439731a15d88f53285",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.837526+00:00",
+    "updated_at": "2026-09-22T08:55:24.837526+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_eabcad87e0836f2a",
+    "topic": "HR Recruitment",
+    "difficulty": 3,
+    "text": "Describe a time you had to resolve a conflict between two employees.",
+    "expected_concepts": [
+      "neutral mediation",
+      "listening to both sides",
+      "fair resolution"
+    ],
+    "domain": "HR Recruitment",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "29db7003daae0400f3cd185dc876c2fa4e6a7adddc92c96c2eedbbae64537f62",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.840691+00:00",
+    "updated_at": "2026-09-22T08:55:24.840691+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_37d061af5a63bcae",
+    "topic": "HR Recruitment",
+    "difficulty": 2,
+    "text": "How would you handle a confidential employee complaint about a manager?",
+    "expected_concepts": [
+      "confidentiality",
+      "proper investigation process",
+      "protecting the employee from retaliation"
+    ],
+    "domain": "HR Recruitment",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "795a745c8c94bfd0bab7457597c94881da07abc1daf3e66fb855f7ee97beddd6",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.843518+00:00",
+    "updated_at": "2026-09-22T08:55:24.843518+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_168c4a6b54ecd8c1",
+    "topic": "HR Recruitment",
+    "difficulty": 3,
+    "text": "How do you stay updated on employment law and ensure company policies remain compliant?",
+    "expected_concepts": [
+      "continuous learning",
+      "legal resource use",
+      "policy review process"
+    ],
+    "domain": "HR Recruitment",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "cd43c7c06ca907e20695c645c3296446fd7ef822d28df9e27ac3819556bc67e3",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.846234+00:00",
+    "updated_at": "2026-09-22T08:55:24.846234+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_68d5b4408d3a55b9",
+    "topic": "Customer Service",
+    "difficulty": 1,
+    "text": "What does great customer service mean to you?",
+    "expected_concepts": [
+      "empathy",
+      "responsiveness",
+      "problem resolution"
+    ],
+    "domain": "Customer Service",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "cd2175ed330e66c3706386f2ab200be5bc3a032a27110d4c23f49e5df56a8ab5",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.848989+00:00",
+    "updated_at": "2026-09-22T08:55:24.848989+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0d986044c5f8ac22",
+    "topic": "Customer Service",
+    "difficulty": 2,
+    "text": "Describe a time you dealt with an angry or upset customer. How did you resolve it?",
+    "expected_concepts": [
+      "active listening",
+      "de-escalation",
+      "resolution focus"
+    ],
+    "domain": "Customer Service",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "3c047e133cdcdacd1cdca88703542a1ea8ba5ac230851a58e699a91bf8875f65",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.851934+00:00",
+    "updated_at": "2026-09-22T08:55:24.851934+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6ae4d0d875ea3d8d",
+    "topic": "Customer Service",
+    "difficulty": 2,
+    "text": "How do you handle a situation where you can't give the customer exactly what they want?",
+    "expected_concepts": [
+      "honest communication",
+      "offering alternatives",
+      "managing expectations"
+    ],
+    "domain": "Customer Service",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "28d9f7968b17fea7857e46cfff86175e16ba45cf69de44b00e2faf9c39d5266a",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.854624+00:00",
+    "updated_at": "2026-09-22T08:55:24.854624+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_e2037d3c98c63624",
+    "topic": "Customer Service",
+    "difficulty": 3,
+    "text": "How do you balance following company policy with doing what's best for the customer?",
+    "expected_concepts": [
+      "judgment within policy limits",
+      "escalation when needed",
+      "customer-centric thinking"
+    ],
+    "domain": "Customer Service",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "37ab821e6d2ca43f083470662803eaacda298ee4a80c6345ecfe865175e1a037",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.857368+00:00",
+    "updated_at": "2026-09-22T08:55:24.857368+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_b93306073ce0db66",
+    "topic": "Customer Service",
+    "difficulty": 2,
+    "text": "How do you handle multiple customer requests at the same time?",
+    "expected_concepts": [
+      "prioritization",
+      "clear communication of wait times",
+      "staying organized"
+    ],
+    "domain": "Customer Service",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "5b2a46ff7048106dab5d251261fa2752cbe4bd58f57f911fe84b4245c8240b19",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.860037+00:00",
+    "updated_at": "2026-09-22T08:55:24.860037+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0f791a84212f2a67",
+    "topic": "Marketing",
+    "difficulty": 2,
+    "text": "How would you measure the success of a marketing campaign?",
+    "expected_concepts": [
+      "defining KPIs upfront",
+      "ROI/conversion tracking",
+      "comparing against goals"
+    ],
+    "domain": "Marketing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "88879124c8f2ab96f26e6ca4a030961e03c490e1015afe3bc788935246dd5e76",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.862686+00:00",
+    "updated_at": "2026-09-22T08:55:24.862686+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_685fa9673f21038f",
+    "topic": "Marketing",
+    "difficulty": 2,
+    "text": "How do you identify and understand a target audience for a new product?",
+    "expected_concepts": [
+      "market research",
+      "customer segmentation",
+      "persona development"
+    ],
+    "domain": "Marketing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d0aa10848abbd8e44368c1700b5e5b7c3d2c00889ca7cbef0cfcf48833c26789",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.865393+00:00",
+    "updated_at": "2026-09-22T08:55:24.865393+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d77924f330e39774",
+    "topic": "Marketing",
+    "difficulty": 3,
+    "text": "Describe a marketing campaign you worked on that didn't perform as expected. What did you learn?",
+    "expected_concepts": [
+      "honest reflection",
+      "root cause analysis",
+      "actionable learning"
+    ],
+    "domain": "Marketing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "07357410327bbc4c9c806b5679e4f8555d07762629528bdde7db76c81bb1f428",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.868969+00:00",
+    "updated_at": "2026-09-22T08:55:24.868969+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_932a12f7b4bf371a",
+    "topic": "Marketing",
+    "difficulty": 3,
+    "text": "How would you approach marketing a product with a very limited budget?",
+    "expected_concepts": [
+      "prioritizing high-impact channels",
+      "organic/low-cost tactics",
+      "creative resourcefulness"
+    ],
+    "domain": "Marketing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "5a070f448a483f7c16100a5f561f02d8032238c24919be6db29f0d2770f7f887",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.871872+00:00",
+    "updated_at": "2026-09-22T08:55:24.871872+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_5d2659f3a4d01820",
+    "topic": "Marketing",
+    "difficulty": 2,
+    "text": "How do you stay current with changing trends in digital marketing?",
+    "expected_concepts": [
+      "continuous learning",
+      "following industry sources",
+      "experimentation"
+    ],
+    "domain": "Marketing",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a6a01bc8d45185b8a1d5f1a3bcb212afb48425324282e68775eb4fb05ae6fe45",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.874716+00:00",
+    "updated_at": "2026-09-22T08:55:24.874716+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d835c8874032e7c8",
+    "topic": "Sales",
+    "difficulty": 2,
+    "text": "Walk me through how you would approach a cold prospect who isn't interested initially.",
+    "expected_concepts": [
+      "understanding their needs",
+      "value-based pitch",
+      "handling rejection gracefully"
+    ],
+    "domain": "Sales",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "f4bd26b8895f6a152a6d39587fc5b2c0e9d9fbe43e711f2ae6ad980fbb46e665",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.877539+00:00",
+    "updated_at": "2026-09-22T08:55:24.877539+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_bd06f3bebd4dcaf5",
+    "topic": "Sales",
+    "difficulty": 2,
+    "text": "How do you handle objections from a potential customer during a sales pitch?",
+    "expected_concepts": [
+      "active listening",
+      "addressing the real concern",
+      "not being pushy"
+    ],
+    "domain": "Sales",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "39ccd148c5f12e870144152acc075e08112524ed630cdaca365883e4b177163f",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.880381+00:00",
+    "updated_at": "2026-09-22T08:55:24.880381+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d15c5f965628aa2f",
+    "topic": "Sales",
+    "difficulty": 3,
+    "text": "Describe a time you lost a big deal. What did you learn from it?",
+    "expected_concepts": [
+      "honest reflection",
+      "identifying what went wrong",
+      "applying the lesson going forward"
+    ],
+    "domain": "Sales",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "113d1310025c138b1ab2990f742bd1a3f093ff8f396e8d579e0f0a0bae175185",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.883614+00:00",
+    "updated_at": "2026-09-22T08:55:24.883614+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0e7fe6b9e85a9c28",
+    "topic": "Sales",
+    "difficulty": 2,
+    "text": "How do you build long-term trust with a client rather than just closing a one-time sale?",
+    "expected_concepts": [
+      "relationship-building",
+      "follow-through",
+      "customer success focus"
+    ],
+    "domain": "Sales",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "6f1467e0e9564d98f7044cbf8313b162ac1b73f7f768b7689bc02fae2360de0e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.886524+00:00",
+    "updated_at": "2026-09-22T08:55:24.886524+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_1415d35169411c1f",
+    "topic": "Sales",
+    "difficulty": 3,
+    "text": "How do you prioritize your pipeline when you have many leads at different stages?",
+    "expected_concepts": [
+      "lead scoring/prioritization",
+      "time management",
+      "focus on highest-probability deals"
+    ],
+    "domain": "Sales",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "7a56ecb69bd73074122bf295bfd7612d66b68d3d60415c451c37c361da598f32",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.889401+00:00",
+    "updated_at": "2026-09-22T08:55:24.889401+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_c3e9915c1dd33e6a",
+    "topic": "Hospitality",
+    "difficulty": 1,
+    "text": "Why are you drawn to a career in hospitality?",
+    "expected_concepts": [
+      "genuine motivation",
+      "enjoyment of guest interaction",
+      "service orientation"
+    ],
+    "domain": "Hospitality",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d1dc1383af7db3abcacafc9e9c33824d4347b91c5a94044d9f7f2f997028701e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.892428+00:00",
+    "updated_at": "2026-09-22T08:55:24.892428+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f75d1e07547d0be0",
+    "topic": "Hospitality",
+    "difficulty": 2,
+    "text": "Describe a time you went above and beyond for a guest.",
+    "expected_concepts": [
+      "initiative",
+      "attention to guest needs",
+      "positive outcome"
+    ],
+    "domain": "Hospitality",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "d7645ef271f5715b9c473f3bb7119a88c75c83675f0b7db09b71db956f8aa0f4",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.895426+00:00",
+    "updated_at": "2026-09-22T08:55:24.895426+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_f3490b9faf89478a",
+    "topic": "Hospitality",
+    "difficulty": 2,
+    "text": "How would you handle a guest complaint about their room or service?",
+    "expected_concepts": [
+      "active listening",
+      "prompt resolution",
+      "following up to ensure satisfaction"
+    ],
+    "domain": "Hospitality",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "a5170b32218638385d1f4b04b4bdfa3d84e7c3109164298c1f358afd76e75225",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.899039+00:00",
+    "updated_at": "2026-09-22T08:55:24.899039+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_d27e5ee7481981de",
+    "topic": "Hospitality",
+    "difficulty": 3,
+    "text": "How do you manage a high-pressure situation during peak hours with multiple guest needs?",
+    "expected_concepts": [
+      "prioritization",
+      "staying composed",
+      "teamwork"
+    ],
+    "domain": "Hospitality",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "16faec0ffa2f99d875d0d9cb52be903b13c12a2e8003e76e11dd517fac9de530",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.902048+00:00",
+    "updated_at": "2026-09-22T08:55:24.902048+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_fcf68b2adc721e64",
+    "topic": "Legal",
+    "difficulty": 2,
+    "text": "How do you ensure accuracy and attention to detail when reviewing legal documents?",
+    "expected_concepts": [
+      "systematic review process",
+      "double-checking critical clauses",
+      "awareness of consequences of errors"
+    ],
+    "domain": "Legal",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "332814932ec463f2ed07b48f591b169bff13affb77526babd5a3de135097e95f",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.905066+00:00",
+    "updated_at": "2026-09-22T08:55:24.905066+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_803787c503089e49",
+    "topic": "Legal",
+    "difficulty": 2,
+    "text": "How would you explain a complex legal concept to a client with no legal background?",
+    "expected_concepts": [
+      "plain-language explanation",
+      "avoiding jargon",
+      "checking client understanding"
+    ],
+    "domain": "Legal",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "21507f98dc5d402c44ac500da70d005719fbd43c5f0f737d45e797b8249e7c60",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.908129+00:00",
+    "updated_at": "2026-09-22T08:55:24.908129+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_159f5c6cc740ecc9",
+    "topic": "Legal",
+    "difficulty": 3,
+    "text": "How do you handle confidential client information, especially in a busy office environment?",
+    "expected_concepts": [
+      "strict confidentiality practices",
+      "secure document handling",
+      "discretion"
+    ],
+    "domain": "Legal",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "129bd72ecc9156bf953173b58fa9b748bd7591608f89fa43222658ae9204dd6e",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.911136+00:00",
+    "updated_at": "2026-09-22T08:55:24.911136+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_0d7a90ccc9ade688",
+    "topic": "Legal",
+    "difficulty": 3,
+    "text": "Describe how you would approach researching a legal question you're unfamiliar with.",
+    "expected_concepts": [
+      "systematic legal research",
+      "using reliable sources",
+      "verifying with precedent/statute"
+    ],
+    "domain": "Legal",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "59b009151ef47da95401fe9f29ea41a48e51394d9218ac0dcfa2cbeaec431f8d",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.914482+00:00",
+    "updated_at": "2026-09-22T08:55:24.914482+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_a4bebf37b8988f70",
+    "topic": "Retail Operations",
+    "difficulty": 1,
+    "text": "What do you think makes for a great in-store customer experience?",
+    "expected_concepts": [
+      "friendly service",
+      "store presentation",
+      "efficient checkout"
+    ],
+    "domain": "Retail Operations",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "86246ca545cf977f156cbd6c5f00e9c284679eed9c6f09500b8d08262fd6d979",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.917609+00:00",
+    "updated_at": "2026-09-22T08:55:24.917609+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_fad3a768223c4330",
+    "topic": "Retail Operations",
+    "difficulty": 2,
+    "text": "How would you handle a situation where inventory counts don't match the system?",
+    "expected_concepts": [
+      "systematic recount",
+      "identifying discrepancy source",
+      "documentation/reporting"
+    ],
+    "domain": "Retail Operations",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "21c399626b06603539445b97bc6c218356f5dce2567630edd05e09ff5b8dcaf4",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.920951+00:00",
+    "updated_at": "2026-09-22T08:55:24.920951+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_c9acddee35bb2c20",
+    "topic": "Retail Operations",
+    "difficulty": 2,
+    "text": "How do you manage a busy shift with limited staff?",
+    "expected_concepts": [
+      "prioritization",
+      "delegating effectively",
+      "staying calm under pressure"
+    ],
+    "domain": "Retail Operations",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "aafe119cf7dd82bc49b87873fed5cb3257e5c40f4f1721acec1f10a54acfabf7",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.924157+00:00",
+    "updated_at": "2026-09-22T08:55:24.924157+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6804e40a0dc5ae72",
+    "topic": "Retail Operations",
+    "difficulty": 3,
+    "text": "Describe how you would train a new team member on store procedures.",
+    "expected_concepts": [
+      "structured onboarding",
+      "hands-on practice",
+      "checking for understanding"
+    ],
+    "domain": "Retail Operations",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "aa8b9dc9681d03b645a8337ca8c0fdcaabd801aa332af05c1d5b066ae63637ee",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.927260+00:00",
+    "updated_at": "2026-09-22T08:55:24.927260+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_eb3d00228326296d",
+    "topic": "Project",
+    "difficulty": 2,
+    "text": "Walk me through a project on your resume that you're proud of. What was your specific contribution?",
+    "expected_concepts": [
+      "clear ownership",
+      "technical/practical decisions made",
+      "outcome/impact"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "aef0a7ed1d04a987d21dd60f2a062cc145729c8c384872fbbd363f9ea653458c",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.931024+00:00",
+    "updated_at": "2026-09-22T08:55:24.931024+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_70e935fdcb73e464",
+    "topic": "Project",
+    "difficulty": 3,
+    "text": "What was the most challenging part of a project you've worked on, and how did you solve it?",
+    "expected_concepts": [
+      "specific obstacle",
+      "problem-solving approach",
+      "result"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "b17ceb93d0b5facf604228971593f76f238e26e7a8f4f3f858fcd4a37af0109b",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.934796+00:00",
+    "updated_at": "2026-09-22T08:55:24.934796+00:00",
+    "review_note": null
+  },
+  {
+    "id": "q_6823a056f611355c",
+    "topic": "Project",
+    "difficulty": 3,
+    "text": "If you had more time on one of your past projects, what would you improve and why?",
+    "expected_concepts": [
+      "self-awareness of limitations",
+      "specific improvement idea",
+      "reasoning"
+    ],
+    "domain": "General",
+    "status": "active",
+    "source": "imported",
+    "question_hash": "cdcbc4d26e72b52c0021e57546c9cd81dc4f74cc689e112a0cc4cf8f683f1a70",
+    "created_by": "provision-seed",
+    "created_at": "2026-09-22T08:55:24.938168+00:00",
+    "updated_at": "2026-09-22T08:55:24.938168+00:00",
+    "review_note": null
+  }
+]

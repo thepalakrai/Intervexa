@@ -5,202 +5,513 @@
 <title>Intervexa - AI Interview Simulator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 <style>
+  :root {
+    --bg: #0b1120;
+    --bg-soft: #0e1528;
+    --surface: #131c33;
+    --surface-2: #0f1830;
+    --border: #232f4d;
+    --border-soft: #1b2540;
+    --text: #e7ecf6;
+    --text-dim: #93a0bb;
+    --text-faint: #647191;
+    --accent: #6366f1;
+    --accent-hover: #5457e5;
+    --accent-soft: rgba(99, 102, 241, 0.14);
+    --accent-2: #a855f7;
+    --success: #34d399;
+    --success-bg: rgba(52, 211, 153, 0.12);
+    --warning: #fbbf24;
+    --warning-bg: rgba(251, 191, 36, 0.12);
+    --danger: #f87171;
+    --danger-bg: rgba(248, 113, 113, 0.12);
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 12px 32px rgba(2, 6, 18, 0.45);
+    --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-display: "Unbounded", "Inter", sans-serif;
+  }
   * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
+    font-family: var(--font-ui);
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(99, 102, 241, 0.14), transparent 60%),
+      radial-gradient(900px 480px at 8% 0%, rgba(168, 85, 247, 0.08), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.55;
+    min-height: 100vh;
   }
   #root { min-height: 100vh; }
-  .app { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
-  .header { text-align: center; margin-bottom: 32px; }
-  .header h1 { font-size: 28px; margin: 0; background: linear-gradient(135deg, #818cf8, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .header p { color: #94a3b8; margin: 6px 0 0; }
-  .card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 20px;
+  .app { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
+
+  /* ---------- Top navigation shell ---------- */
+  .navbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: rgba(11, 17, 32, 0.82);
+    border-bottom: 1px solid var(--border-soft);
   }
-  .card h2 { margin-top: 0; font-size: 19px; }
-  label { display: block; font-size: 14px; color: #94a3b8; margin: 14px 0 6px; }
-  input[type="file"], textarea, input[type="text"] {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: #0f172a;
-    color: #e2e8f0;
-    font-size: 14px;
+  .navbar-inner {
+    max-width: 960px; margin: 0 auto; padding: 12px 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: 0.2px; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px; flex: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 15px; color: #fff; font-weight: 700;
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  }
+  .nav-links { display: flex; gap: 4px; margin-left: 8px; }
+  .nav-link {
+    background: none; border: none; margin: 0; padding: 8px 13px; border-radius: 8px;
+    color: var(--text-dim); font-size: 13.5px; font-weight: 600; cursor: pointer;
     font-family: inherit;
   }
-  textarea { resize: vertical; min-height: 90px; }
-  textarea.code { font-family: "SF Mono", Consolas, monospace; min-height: 220px; font-size: 13px; }
-  button {
-    background: linear-gradient(135deg, #6366f1, #a855f7);
-    color: white;
-    border: none;
-    padding: 11px 22px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 16px;
+  .nav-link:hover { color: var(--text); background: rgba(148, 163, 184, 0.1); }
+  .nav-link.active { color: var(--text); background: var(--accent-soft); }
+  .nav-spacer { flex: 1; }
+  .user-chip {
+    display: flex; align-items: center; gap: 9px;
+    font-size: 13px; color: var(--text-dim);
   }
-  button:disabled { opacity: 0.5; cursor: not-allowed; }
-  button.secondary { background: #334155; }
-  button.icon-btn { background: #312e81; padding: 8px 14px; margin: 0; font-size: 13px; }
-  button.mic-btn { background: #7f1d1d; }
-  button.mic-btn.recording { background: #dc2626; animation: pulse 1.2s infinite; }
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%; flex: none;
+    background: linear-gradient(135deg, #334155, #1e293b);
+    border: 1px solid var(--border);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #c7d2fe;
+  }
+
+  /* ---------- Page headers ---------- */
+  .page-head { margin: 30px 0 18px; }
+  .page-head h1 { font-size: 24px; margin: 0 0 4px; font-weight: 700; letter-spacing: -0.3px; }
+  .page-head p { margin: 0; color: var(--text-dim); font-size: 14px; }
+  .eyebrow {
+    display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: #a5b4fc; margin-bottom: 10px;
+  }
+
+  /* ---------- Cards ---------- */
+  .card {
+    background: linear-gradient(180deg, rgba(30, 41, 68, 0.55), rgba(19, 28, 51, 0.9)), var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 { margin: 0 0 4px; font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
+  .card-sub { color: var(--text-dim); font-size: 13.5px; margin: 0 0 6px; }
+  .card.flat { box-shadow: none; }
+  .divider { border: none; border-top: 1px solid var(--border-soft); margin: 20px 0 0; padding-top: 18px; }
+
+  /* ---------- Buttons ---------- */
+  button { font-family: inherit; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; margin-top: 16px;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .btn.primary { background: var(--accent); color: #fff; box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35); }
+  .btn.primary:hover:not(:disabled) { background: var(--accent-hover); }
+  .btn.secondary { background: rgba(148, 163, 184, 0.1); border-color: var(--border); color: var(--text); margin-top: 16px; }
+  .btn.secondary:hover:not(:disabled) { background: rgba(148, 163, 184, 0.18); }
+  .btn.ghost { background: transparent; color: var(--text-dim); border-color: transparent; margin-top: 16px; padding: 10px 14px; }
+  .btn.ghost:hover:not(:disabled) { color: var(--text); background: rgba(148, 163, 184, 0.1); }
+  .btn.danger-ghost { background: transparent; color: var(--danger); border-color: transparent; margin-top: 0; padding: 7px 12px; font-size: 13px; }
+  .btn.danger-ghost:hover { background: var(--danger-bg); }
+  .btn.block { width: 100%; }
+  .btn.sm { padding: 7px 13px; font-size: 13px; border-radius: 8px; margin-top: 0; }
+  .btn svg { flex: none; }
+  /* legacy aliases used across screens */
+  button.secondary { background: rgba(148, 163, 184, 0.1); }
+  button.icon-btn {
+    background: rgba(99, 102, 241, 0.14); border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #c7d2fe; padding: 7px 13px; margin: 0; font-size: 13px; font-weight: 600;
+    border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+  }
+  button.icon-btn:hover { background: rgba(99, 102, 241, 0.24); }
+  button.mic-btn {
+    background: var(--danger-bg); border: 1px solid rgba(248, 113, 113, 0.35); color: #fca5a5;
+    padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+  }
+  button.mic-btn:hover { background: rgba(248, 113, 113, 0.2); }
+  button.mic-btn.recording {
+    background: rgba(220, 38, 38, 0.35); border-color: #ef4444; color: #fff;
+    animation: pulse 1.4s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.65; } }
+
+  /* ---------- Forms ---------- */
+  .field { margin: 14px 0 0; }
+  .field > label, label {
+    display: block; font-size: 13px; font-weight: 600; color: var(--text-dim); margin: 14px 0 6px;
+  }
+  input[type="file"], textarea, input[type="text"], input[type="password"], input[type="email"], select {
+    width: 100%;
+    padding: 10px 13px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22);
+  }
+  input::placeholder, textarea::placeholder { color: var(--text-faint); }
+  select option { background: var(--surface); }
+  textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+  textarea.code { font-family: ui-monospace, "SF Mono", Consolas, monospace; min-height: 240px; font-size: 13px; tab-size: 4; }
+  .field-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .field-row > * { flex: 1; min-width: 140px; }
   .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
   .row > * { flex: 1; }
+  .row.tight { gap: 8px; }
   .row.tight > * { flex: none; }
-  .badge {
-    display: inline-block;
-    padding: 3px 10px;
+  .input-with-toggle { position: relative; }
+  .input-with-toggle input { padding-right: 52px; }
+  .toggle-vis {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; margin: 0; padding: 6px 10px; cursor: pointer;
+    color: var(--text-faint); font-size: 12.5px; font-weight: 600;
+  }
+  .toggle-vis:hover { color: var(--text); }
+
+  /* segmented control (login/signup) */
+  .segmented {
+    display: flex; background: var(--bg-soft); border: 1px solid var(--border-soft);
+    border-radius: 10px; padding: 4px; gap: 4px; margin-bottom: 18px;
+  }
+  .segmented button {
+    flex: 1; background: none; border: none; margin: 0; padding: 8px;
+    border-radius: 7px; color: var(--text-dim); font-size: 13.5px; font-weight: 600; cursor: pointer;
+  }
+  .segmented button.active { background: rgba(148, 163, 184, 0.16); color: var(--text); }
+
+  /* ---------- Pills / badges ---------- */
+  .pill, .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 11px;
     border-radius: 999px;
     font-size: 12px;
     font-weight: 600;
-    margin-right: 6px;
+    margin: 0 6px 6px 0;
+    border: 1px solid transparent;
+    line-height: 1.7;
   }
-  .badge.topic { background: #312e81; color: #a5b4fc; }
-  .badge.difficulty { background: #4c1d95; color: #d8b4fe; }
-  .badge.pass { background: #14532d; color: #86efac; }
-  .badge.fail { background: #7f1d1d; color: #fca5a5; }
-  .question-row { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; }
-  .question-text { font-size: 17px; line-height: 1.5; flex: 1; }
+  .pill.accent, .badge.topic { background: var(--accent-soft); color: #c7d2fe; border-color: rgba(99, 102, 241, 0.3); }
+  .pill.neutral, .badge.difficulty { background: rgba(148, 163, 184, 0.12); color: #b6c2d8; border-color: var(--border); }
+  .pill.success, .badge.pass { background: var(--success-bg); color: #6ee7b7; border-color: rgba(52, 211, 153, 0.3); }
+  .pill.danger, .badge.fail { background: var(--danger-bg); color: #fca5a5; border-color: rgba(248, 113, 113, 0.3); }
+  .pill.warning { background: var(--warning-bg); color: #fcd34d; border-color: rgba(251, 191, 36, 0.3); }
+
+  /* ---------- Stepper ---------- */
+  .stepper { display: flex; align-items: center; gap: 0; margin: 4px 0 20px; }
+  .step { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-faint); }
+  .step-dot {
+    width: 26px; height: 26px; border-radius: 50%; flex: none;
+    border: 1px solid var(--border); background: var(--bg-soft);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--text-dim);
+  }
+  .step.done { color: var(--text-dim); }
+  .step.done .step-dot { background: var(--success-bg); border-color: rgba(52, 211, 153, 0.4); color: var(--success); }
+  .step.current { color: var(--text); }
+  .step.current .step-dot { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18); }
+  .step-line { flex: 1; height: 1px; background: var(--border); margin: 0 10px; min-width: 12px; }
+  .step.done + .step-line, .step-line.done { background: rgba(52, 211, 153, 0.4); }
+
+  /* ---------- Dropzone ---------- */
+  .dropzone {
+    border: 1.5px dashed var(--border); border-radius: var(--radius);
+    background: var(--bg-soft);
+    padding: 22px; text-align: center; cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: rgba(99, 102, 241, 0.06); }
+  .dropzone.has-file { border-style: solid; border-color: rgba(52, 211, 153, 0.45); text-align: left; }
+  .dropzone .dz-title { font-weight: 600; font-size: 14px; }
+  .dropzone .dz-sub { color: var(--text-faint); font-size: 12.5px; margin-top: 3px; }
+  .file-chip {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13.5px;
+  }
+  .file-chip .fname { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-chip button { background: none; border: none; color: var(--text-faint); cursor: pointer; font-size: 15px; margin: 0; padding: 0 2px; }
+  .file-chip button:hover { color: var(--danger); }
+
+  /* ---------- Interview ---------- */
+  .q-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; margin-bottom: 4px; }
+  .q-count { margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  .question-row { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 4px; }
+  .question-text { font-size: 19px; line-height: 1.55; font-weight: 600; letter-spacing: -0.2px; flex: 1; }
+  .replay-btn {
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-dim);
+    width: 36px; height: 36px; border-radius: 10px; cursor: pointer; flex: none;
+    display: inline-flex; align-items: center; justify-content: center; margin: 0; padding: 0;
+  }
+  .replay-btn:hover { color: var(--text); border-color: var(--accent); }
+  .answer-toolbar { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .char-count { font-size: 12px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  .rec-timer { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: #fca5a5; font-variant-numeric: tabular-nums; }
+  .rec-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 1.2s infinite; }
+  .eval-block { border-top: 1px solid var(--border-soft); margin-top: 22px; padding-top: 18px; }
+  .meter { margin: 10px 0; }
+  .meter-head { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 5px; }
+  .meter-head .m-label { color: var(--text-dim); font-weight: 600; }
+  .meter-head .m-val { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .meter-track { height: 7px; background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 999px; overflow: hidden; }
+  .meter-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.5s ease; }
+  .meter-fill.good { background: linear-gradient(90deg, #10b981, #34d399); }
+  .meter-fill.warn { background: linear-gradient(90deg, #d97706, #fbbf24); }
+  .meter-fill.bad { background: linear-gradient(90deg, #dc2626, #f87171); }
   .eval-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 14px; }
-  .eval-item { background: #0f172a; border-radius: 8px; padding: 10px; text-align: center; }
-  .eval-item .label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }
-  .eval-item .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
-  .progress-bar { height: 8px; background: #334155; border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #a855f7); transition: width 0.4s; }
-  .test-result { padding: 10px; border-radius: 8px; margin-bottom: 8px; font-family: monospace; font-size: 12.5px; }
-  .test-result.pass { background: #14532d33; border: 1px solid #14532d; }
-  .test-result.fail { background: #7f1d1d33; border: 1px solid #7f1d1d; }
-  .skill-tag { display: inline-block; background: #312e81; color: #a5b4fc; padding: 4px 10px; border-radius: 6px; font-size: 12.5px; margin: 3px; }
-  .skill-tag.gap { background: #7f1d1d; color: #fca5a5; }
-  .error-box { background: #7f1d1d33; border: 1px solid #7f1d1d; color: #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 13.5px; }
+  .eval-item { background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 10px; padding: 10px; text-align: center; }
+  .eval-item .label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+  .eval-item .value { font-size: 20px; font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+  /* ---------- Proctor dock ---------- */
+  .proctor-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 10px;
+    padding: 8px 12px; margin-bottom: 16px; font-size: 12.5px; color: var(--text-dim);
+  }
+  .proctor-dot { width: 9px; height: 9px; border-radius: 50%; background: #475569; flex: none; }
+  .proctor-dot.on { background: var(--success); box-shadow: 0 0 8px rgba(52, 211, 153, 0.8); }
+  .proctor-dot.warn { background: var(--warning); box-shadow: 0 0 8px rgba(251, 191, 36, 0.8); }
+  .proctor-dot.off { background: var(--danger); }
+  .proctor-video { width: 132px; height: 96px; border-radius: 8px; background: #000; object-fit: cover; flex: none; border: 1px solid var(--border); }
+
+  /* ---------- Report ---------- */
+  .score-wrap { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .score-ring { position: relative; width: 132px; height: 132px; flex: none; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring .ring-val {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; font-family: var(--font-display);
+  }
+  .score-ring .ring-val b { font-size: 30px; }
+  .score-ring .ring-val span { font-size: 10.5px; color: var(--text-faint); font-family: var(--font-ui); font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; }
   .score-big { font-size: 52px; font-weight: 800; text-align: center; margin: 4px 0; }
   .center { text-align: center; }
-  .muted { color: #94a3b8; font-size: 13.5px; }
+  .muted { color: var(--text-dim); font-size: 13.5px; }
+  .history-item { padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+  .history-item:last-child { border-bottom: none; padding-bottom: 2px; }
+  .history-item .hq { font-size: 14.5px; font-weight: 600; margin-bottom: 8px; }
+  .history-item .hans { font-size: 13.5px; color: var(--text-dim); margin: 8px 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .progress-bar { height: 8px; background: var(--bg-soft); border: 1px solid var(--border-soft); border-radius: 999px; overflow: hidden; margin: 10px 0 4px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width 0.4s; }
+  .test-result { padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 8px; font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+  .test-result.pass { background: var(--success-bg); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .test-result.fail { background: var(--danger-bg); border: 1px solid rgba(248, 113, 113, 0.3); }
+  .skill-tag { display: inline-block; background: rgba(99, 102, 241, 0.13); border: 1px solid rgba(99, 102, 241, 0.28); color: #c7d2fe; padding: 4px 11px; border-radius: 7px; font-size: 12.5px; font-weight: 600; margin: 3px; }
+  .skill-tag.gap { background: var(--danger-bg); border-color: rgba(248, 113, 113, 0.3); color: #fca5a5; }
+  .error-box { background: var(--danger-bg); border: 1px solid rgba(248, 113, 113, 0.35); color: #fca5a5; padding: 12px 15px; border-radius: 10px; margin-bottom: 16px; font-size: 13.5px; display: flex; gap: 9px; align-items: flex-start; }
+  .notice-box { background: var(--accent-soft); border: 1px solid rgba(99, 102, 241, 0.3); color: #c7d2fe; padding: 12px 15px; border-radius: 10px; margin-bottom: 16px; font-size: 13.5px; }
   .voice-status { font-size: 12.5px; color: #a5b4fc; margin-top: 6px; }
 
-  /* ---- Landing / hero (Intervexa) ---- */
-  .hero {
-    min-height: 78vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    background: #ffffff;
-    border-radius: 20px;
-    margin: -12px -20px;
-    padding: 20px;
-    overflow: hidden;
-  }
-  .hero::before { content: none; }
-  .hero-title {
-    font-size: 56px;
-    font-weight: 800;
-    margin: 0;
-    letter-spacing: -1px;
-    color: #0f172a;
-  }
-  .hero-tagline {
-    color: #475569;
-    font-size: 17px;
-    margin: 14px 0 48px;
-    max-width: 440px;
-  }
+  /* ---------- Coding ---------- */
+  .code-toolbar { display: flex; align-items: center; gap: 10px; margin: 14px 0 8px; flex-wrap: wrap; }
+  .code-toolbar .lang { font-size: 12.5px; font-weight: 700; color: #c7d2fe; background: var(--accent-soft); border: 1px solid rgba(99, 102, 241, 0.3); padding: 4px 11px; border-radius: 999px; }
 
-  /* Cross-browser "liquid glass" button: frosted blur + soft glow border + hover lift.
-     (Skips the experimental SVG feDisplacementMap ripple - unsupported in Chrome's
-     backdrop-filter, which would make the button invisible/broken there.) */
-  .glass-btn {
-    position: relative;
-    padding: 22px 70px;
-    font-family: 'Unbounded', sans-serif;
-    font-size: 44px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #1e1b4b;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid rgba(30,27,75,0.12);
-    border-radius: 999px;
-    cursor: pointer;
-    margin-top: 0;
-    box-shadow:
-      inset 0 1px 1px rgba(255,255,255,0.8),
-      0 8px 24px rgba(30,27,75,0.15);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  /* ---------- Landing ---------- */
+  .hero { padding: 72px 0 40px; text-align: left; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 600; color: #c7d2fe;
+    background: var(--accent-soft); border: 1px solid rgba(99, 102, 241, 0.32);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
   }
-  .glass-btn:hover {
-    transform: translateY(-2px) scale(1.03);
-    box-shadow:
-      inset 0 1px 1px rgba(255,255,255,0.9),
-      0 12px 32px rgba(30,27,75,0.22);
+  .hero-badge .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); box-shadow: 0 0 8px var(--success); }
+  .hero-title {
+    font-family: var(--font-display); font-size: 46px; line-height: 1.12; font-weight: 700;
+    margin: 0 0 16px; letter-spacing: -0.5px; max-width: 640px;
   }
-  .glass-btn:active {
-    transform: translateY(0) scale(0.98);
+  .hero-title .grad { background: linear-gradient(120deg, #a5b4fc, #d8b4fe); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero-tagline { color: var(--text-dim); font-size: 17px; margin: 0 0 28px; max-width: 560px; line-height: 1.65; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-cta .btn { margin-top: 0; padding: 13px 28px; font-size: 15px; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
+  .feature-card {
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: var(--radius); padding: 22px;
   }
-  .glass-btn-wrap {
-    position: relative;
-    display: inline-block;
-    filter: url(#goo);
-    padding: 110px;
-    margin: -110px;
+  .feature-icon {
+    width: 38px; height: 38px; border-radius: 11px; margin-bottom: 14px;
+    background: var(--accent-soft); border: 1px solid rgba(99, 102, 241, 0.3);
+    display: inline-flex; align-items: center; justify-content: center; color: #c7d2fe;
   }
-  .glass-blob {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.85;
-    z-index: 0;
-    transition: background 0.6s ease;
+  .feature-card h3 { margin: 0 0 6px; font-size: 15px; }
+  .feature-card p { margin: 0; font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
+
+  /* ---------- Auth ---------- */
+  .auth-wrap { max-width: 430px; margin: 64px auto 0; }
+  .auth-card { padding: 30px 28px; }
+  .auth-title { font-size: 21px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.3px; }
+
+  /* ---------- Admin ---------- */
+  .admin-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+  .admin-toolbar > * { flex: 1; min-width: 150px; }
+  .admin-toolbar label { margin-top: 0; }
+  .q-row { padding: 16px 0; border-bottom: 1px solid var(--border-soft); }
+  .q-row:last-child { border-bottom: none; }
+  .status-pill { text-transform: capitalize; }
+  details.collapsible {
+    border: 1px solid var(--border-soft); border-radius: var(--radius);
+    background: var(--surface); margin-bottom: 16px; overflow: hidden;
   }
-  .glass-btn { position: relative; z-index: 1; }
-  .app-header {
-    text-align: center;
-    margin-bottom: 28px;
+  details.collapsible summary {
+    cursor: pointer; padding: 16px 22px; font-weight: 700; font-size: 15px; list-style: none;
+    display: flex; align-items: center; gap: 10px;
   }
-  .app-header h1 {
-    font-size: 22px;
-    margin: 0;
-    color: #cbd5e1;
-    font-weight: 700;
-    letter-spacing: -0.3px;
+  details.collapsible summary::-webkit-details-marker { display: none; }
+  details.collapsible summary:hover { background: rgba(148, 163, 184, 0.05); }
+  details.collapsible .collapsible-body { padding: 0 22px 22px; border-top: 1px solid var(--border-soft); }
+
+  /* ---------- Skeleton / misc ---------- */
+  .skeleton {
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--surface) 25%, var(--bg-soft) 50%, var(--surface) 75%);
+    background-size: 200% 100%; animation: shimmer 1.3s infinite;
+    min-height: 14px; margin: 8px 0;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .icon { display: inline-block; vertical-align: -3px; }
+  .spin { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+  @media (max-width: 720px) {
+    .app { padding: 0 14px 48px; }
+    .card { padding: 18px; }
+    .hero { padding: 48px 0 28px; }
+    .hero-title { font-size: 32px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .score-wrap { gap: 14px; }
+    .question-text { font-size: 17px; }
   }
 </style>
 </head>
 <body>
 <div id="root"></div>
-<svg style="position: absolute; width: 0; height: 0;">
-  <defs>
-    <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
-      <feColorMatrix in="blur" mode="matrix"
-        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -11" result="goo" />
-      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-    </filter>
-  </defs>
-</svg>
 <script type="text/babel" data-presets="react">
 const { useState, useRef, useEffect } = React;
 
 const API = "http://localhost:8000";
+
+// ---------------------------------------------------------------------
+// Shared UI: inline SVG icons, stepper, meters, score ring
+// ---------------------------------------------------------------------
+
+function Icon({ name, size }) {
+  const s = size || 16;
+  const common = { width: s, height: s, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", className: "icon" };
+  const paths = {
+    mic: <React.Fragment><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 10a7 7 0 0 0 14 0" /><line x1="12" y1="19" x2="12" y2="22" /></React.Fragment>,
+    stop: <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none" />,
+    speaker: <React.Fragment><path d="M11 5 6 9H2v6h4l5 4z" /><path d="M15.5 8.5a5 5 0 0 1 0 7" /></React.Fragment>,
+    camera: <React.Fragment><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></React.Fragment>,
+    check: <polyline points="20 6 9 17 4 12" />,
+    alert: <React.Fragment><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></React.Fragment>,
+    arrow: <line x1="5" y1="12" x2="19" y2="12" />,
+    arrowRight: <React.Fragment><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></React.Fragment>,
+    code: <React.Fragment><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></React.Fragment>,
+    file: <React.Fragment><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></React.Fragment>,
+    x: <React.Fragment><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></React.Fragment>,
+    refresh: <React.Fragment><polyline points="23 4 23 10 17 10" /><path d="M20.5 15a9 9 0 1 1-1.4-8.4L23 10" /></React.Fragment>,
+    logout: <React.Fragment><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></React.Fragment>,
+    eye: <React.Fragment><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></React.Fragment>,
+    eyeOff: <React.Fragment><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" /><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" /><line x1="1" y1="1" x2="23" y2="23" /></React.Fragment>,
+    clock: <React.Fragment><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></React.Fragment>,
+  };
+  return <svg {...common}>{paths[name] || null}</svg>;
+}
+
+function Spinner() {
+  return <span className="spin" aria-hidden="true" />;
+}
+
+function Stepper({ steps, current }) {
+  return (
+    <div className="stepper" aria-label="Progress">
+      {steps.map((label, i) => (
+        <React.Fragment key={label}>
+          {i > 0 && <div className={`step-line ${i <= current ? "done" : ""}`} />}
+          <div className={`step ${i < current ? "done" : ""} ${i === current ? "current" : ""}`}>
+            <span className="step-dot">{i < current ? <Icon name="check" size={13} /> : i + 1}</span>
+            <span>{label}</span>
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function Meter({ label, value }) {
+  const v = Math.max(0, Math.min(100, Number(value) || 0));
+  const cls = v >= 70 ? "good" : v >= 40 ? "warn" : "bad";
+  return (
+    <div className="meter">
+      <div className="meter-head"><span className="m-label">{label}</span><span className="m-val">{v}</span></div>
+      <div className="meter-track"><div className={`meter-fill ${cls}`} style={{ width: `${v}%` }} /></div>
+    </div>
+  );
+}
+
+function ScoreRing({ value }) {
+  const v = Math.max(0, Math.min(100, Number(value) || 0));
+  const r = 56, circ = 2 * Math.PI * r;
+  const color = v >= 70 ? "#34d399" : v >= 40 ? "#fbbf24" : "#f87171";
+  return (
+    <div className="score-ring">
+      <svg width="132" height="132">
+        <circle cx="66" cy="66" r={r} stroke="#1e2a47" strokeWidth="11" fill="none" />
+        <circle cx="66" cy="66" r={r} stroke={color} strokeWidth="11" fill="none"
+          strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={circ - (circ * v) / 100} />
+      </svg>
+      <div className="ring-val"><b>{v}</b><span>Ready</span></div>
+    </div>
+  );
+}
+
+function PageHead({ eyebrow, title, sub }) {
+  return (
+    <div className="page-head">
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {sub && <p>{sub}</p>}
+    </div>
+  );
+}
 
 // ---------------------------------------------------------------------
 // Voice helpers: play TTS audio, and record+encode a WAV clip for STT
@@ -273,15 +584,25 @@ function downsample(buffer, fromRate, toRate) {
 function useVoiceRecorder(onTranscribed) {
   const [recording, setRecording] = useState(false);
   const [status, setStatus] = useState("");
+  const [sttLatencyMs, setSttLatencyMs] = useState(null);
+  const [elapsed, setElapsed] = useState(0);
   const audioCtxRef = useRef(null);
   const processorRef = useRef(null);
   const sourceRef = useRef(null);
   const streamRef = useRef(null);
   const samplesRef = useRef([]);
+  const silenceRef = useRef(0);
+  const stopFnRef = useRef(null);
+  const timerRef = useRef(null);
+
+  function clearTimer() {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+  }
 
   async function start() {
     try {
       setStatus("Requesting microphone...");
+      setSttLatencyMs(null);
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
 
@@ -293,29 +614,55 @@ function useVoiceRecorder(onTranscribed) {
       const processor = audioCtx.createScriptProcessor(4096, 1, 1);
       processorRef.current = processor;
       samplesRef.current = [];
+      silenceRef.current = 0;
 
       processor.onaudioprocess = (e) => {
         const input = e.inputBuffer.getChannelData(0);
         samplesRef.current.push(new Float32Array(input));
+        // Phase 3: lightweight VAD - track RMS energy; auto-stop after
+        // ~2.5s of continuous silence so clips stay short and STT is fast.
+        let sum = 0;
+        for (let i = 0; i < input.length; i += 4) sum += input[i] * input[i];
+        const rms = Math.sqrt(sum / (input.length / 4));
+        if (rms < 0.008) {
+          silenceRef.current += 4096 / audioCtx.sampleRate;
+          if (silenceRef.current > 2.5 && samplesRef.current.length > 8) {
+            setStatus("Silence detected - stopping...");
+            stopFnRef.current && stopFnRef.current();
+          }
+        } else {
+          silenceRef.current = 0;
+        }
       };
 
       source.connect(processor);
       processor.connect(audioCtx.destination);
 
       setRecording(true);
-      setStatus("Recording... click again to stop");
+      setElapsed(0);
+      clearTimer();
+      timerRef.current = setInterval(() => setElapsed((s) => s + 1), 1000);
+      setStatus("Recording — speak now");
+      // Hard cap at 120s so uploads stay small and STT stays fast.
+      setTimeout(() => { if (stopFnRef.current && streamRef.current) {
+        const tracks = streamRef.current.getTracks();
+        if (tracks.some((t) => t.readyState === "live")) stopFnRef.current();
+      } }, 120000);
     } catch (e) {
       setStatus("Microphone access denied or unavailable.");
     }
   }
 
   async function stop() {
+    if (!streamRef.current) return;
+    clearTimer();
     setRecording(false);
     setStatus("Processing audio...");
 
     processorRef.current && processorRef.current.disconnect();
     sourceRef.current && sourceRef.current.disconnect();
     streamRef.current && streamRef.current.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
 
     const originalRate = audioCtxRef.current.sampleRate;
     const totalLength = samplesRef.current.reduce((sum, arr) => sum + arr.length, 0);
@@ -331,39 +678,154 @@ function useVoiceRecorder(onTranscribed) {
 
     audioCtxRef.current && audioCtxRef.current.close();
 
+    const t0 = performance.now();
     try {
       const formData = new FormData();
       formData.append("file", wavBlob, "answer.wav");
       const res = await fetch(`${API}/speech-to-text`, { method: "POST", body: formData });
-      if (!res.ok) throw new Error("Speech recognition failed");
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.detail || "Speech recognition failed");
+      }
       const data = await res.json();
-      setStatus(data.text ? "" : "Didn't catch that - try again.");
+      const clientMs = Math.round(performance.now() - t0);
+      setSttLatencyMs(data.stt_latency_ms != null ? data.stt_latency_ms : clientMs);
+      setStatus(data.text ? `Transcribed in ${((data.stt_latency_ms != null ? data.stt_latency_ms : clientMs) / 1000).toFixed(1)}s` : "Didn't catch that - try again.");
       if (data.text) onTranscribed(data.text);
     } catch (e) {
-      setStatus("Speech recognition failed - check the server terminal.");
+      setStatus(e.message && e.message.includes("too long")
+        ? "Clip too long - please keep answers under ~2 minutes."
+        : "Speech recognition failed - check the server terminal.");
     }
   }
+  stopFnRef.current = stop;
 
   function toggle() {
     if (recording) stop();
     else start();
   }
 
-  return { recording, status, toggle };
+  return { recording, status, sttLatencyMs, elapsed, toggle };
 }
 
 // ---------------------------------------------------------------------
 
 function ErrorBox({ message }) {
   if (!message) return null;
-  return <div className="error-box">{message}</div>;
+  return <div className="error-box"><Icon name="alert" size={16} /><span>{message}</span></div>;
+}
+
+// ---------------------------------------------------------------------
+// Phase 4: proctoring - camera preview + tab-switch/blur/fullscreen/
+// copy-paste signals, posted to POST /proctoring/event for the report.
+// ---------------------------------------------------------------------
+
+function ProctoringBar({ session }) {
+  const [cameraState, setCameraState] = useState("off"); // off | on | denied
+  const [warnings, setWarnings] = useState(0);
+  const [consented, setConsented] = useState(false);
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+  const sessionRef = useRef(session);
+  sessionRef.current = session;
+
+  function sendEvent(event_type, payload) {
+    const s = sessionRef.current;
+    if (!s) return;
+    setWarnings((w) => (event_type === "FACE_OK" ? w : w + 1));
+    fetch(`${API}/proctoring/event`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        session_id: s.sessionId,
+        candidate_id: s.candidateId,
+        event_type,
+        payload: payload || {},
+      }),
+    }).catch(() => {});
+  }
+
+  async function enableCamera() {
+    setConsented(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      streamRef.current = stream;
+      if (videoRef.current) videoRef.current.srcObject = stream;
+      setCameraState("on");
+      sendEvent("FACE_OK", { note: "camera enabled with consent" });
+    } catch (e) {
+      setCameraState("denied");
+      sendEvent("CAMERA_DENIED", {});
+    }
+  }
+
+  useEffect(() => {
+    function onVisibility() {
+      if (document.hidden) sendEvent("TAB_SWITCH", { visible: false });
+    }
+    function onBlur() { sendEvent("FOCUS_LOSS", {}); }
+    function onFullscreen() {
+      if (!document.fullscreenElement) sendEvent("FULLSCREEN_EXIT", {});
+    }
+    function onCopy(e) { sendEvent("COPY", {}); }
+    function onPaste(e) { sendEvent("PASTE", {}); }
+
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("blur", onBlur);
+    document.addEventListener("fullscreenchange", onFullscreen);
+    document.addEventListener("copy", onCopy);
+    document.addEventListener("paste", onPaste);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("blur", onBlur);
+      document.removeEventListener("fullscreenchange", onFullscreen);
+      document.removeEventListener("copy", onCopy);
+      document.removeEventListener("paste", onPaste);
+      streamRef.current && streamRef.current.getTracks().forEach((t) => t.stop());
+    };
+  }, []);
+
+  const dotClass = cameraState === "on" ? "on" : cameraState === "denied" ? "off" : warnings > 0 ? "warn" : "";
+  const [showPreview, setShowPreview] = useState(false);
+
+  return (
+    <div className="proctor-bar">
+      <span className={`proctor-dot ${dotClass}`} />
+      <span style={{ flex: 1 }}>
+        {cameraState === "on"
+          ? `Proctoring active · ${warnings} signal${warnings === 1 ? "" : "s"} logged`
+          : cameraState === "denied"
+            ? "Camera unavailable — tab and focus signals are still logged."
+            : "Proctoring is on — enable your camera for presence signals."}
+      </span>
+      {cameraState === "on" && (
+        <button className="btn ghost sm" onClick={() => setShowPreview(!showPreview)}>
+          <Icon name="camera" size={14} /> {showPreview ? "Hide" : "Preview"}
+        </button>
+      )}
+      {!consented && cameraState !== "on" && (
+        <button className="btn ghost sm" onClick={enableCamera}><Icon name="camera" size={14} /> Enable camera</button>
+      )}
+      <video ref={videoRef} autoPlay muted playsInline className="proctor-video"
+        style={{ display: cameraState === "on" && showPreview ? "block" : "none" }} />
+    </div>
+  );
 }
 
 function UploadScreen({ onStarted }) {
   const [resumeFile, setResumeFile] = useState(null);
   const [jdFile, setJdFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [phase, setPhase] = useState("");
   const [error, setError] = useState("");
+
+  function pickFile(setter) {
+    return (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (f) setter(f);
+      e.target.value = "";
+    };
+  }
 
   async function handleStart() {
     if (!resumeFile || !jdFile) {
@@ -373,18 +835,21 @@ function UploadScreen({ onStarted }) {
     setLoading(true);
     setError("");
     try {
+      setPhase("Uploading resume…");
       const resumeForm = new FormData();
       resumeForm.append("file", resumeFile);
       const resumeRes = await fetch(`${API}/upload-resume`, { method: "POST", body: resumeForm });
       if (!resumeRes.ok) throw new Error("Resume upload failed - check the server terminal for details.");
       const resumeData = await resumeRes.json();
 
+      setPhase("Uploading job description…");
       const jdForm = new FormData();
       jdForm.append("file", jdFile);
       const jdRes = await fetch(`${API}/upload-jd?candidate_id=${resumeData.candidate_id}`, { method: "POST", body: jdForm });
       if (!jdRes.ok) throw new Error("JD upload failed - check the server terminal for details.");
       const jdData = await jdRes.json();
 
+      setPhase("Analyzing your profile…");
       const startRes = await fetch(`${API}/start-interview`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -401,27 +866,55 @@ function UploadScreen({ onStarted }) {
         candidateId: resumeData.candidate_id,
         sessionId: startData.session_id,
         profile: startData.profile,
+        domain: startData.domain,
+        isTechnical: startData.is_technical,
+        roundPlan: startData.round_plan,
+        currentRound: startData.current_round,
+        answeredCount: 0,
         question: startData.question,
       });
     } catch (e) {
       setError(e.message || "Something went wrong.");
     } finally {
       setLoading(false);
+      setPhase("");
     }
   }
 
+  function Dropzone({ title, hint, file, onPick, onClear, inputId }) {
+    return (
+      <div>
+        <label>{title}</label>
+        {file ? (
+          <div className="file-chip">
+            <Icon name="file" size={16} />
+            <span className="fname">{file.name}</span>
+            <button onClick={onClear} title="Remove file" disabled={loading}><Icon name="x" size={15} /></button>
+          </div>
+        ) : (
+          <div className="dropzone" onClick={() => !loading && document.getElementById(inputId).click()}>
+            <div className="dz-title">Drop your PDF here or click to browse</div>
+            <div className="dz-sub">{hint}</div>
+          </div>
+        )}
+        <input id={inputId} type="file" accept="application/pdf" style={{ display: "none" }} onChange={pickFile(onPick)} />
+      </div>
+    );
+  }
+
   return (
-    <div className="card">
-      <h2>Start Your Interview</h2>
-      <p className="muted">Upload your resume and the job description you're preparing for.</p>
-      <ErrorBox message={error} />
-      <label>Resume (PDF)</label>
-      <input type="file" accept="application/pdf" onChange={(e) => setResumeFile(e.target.files[0])} />
-      <label>Job Description (PDF)</label>
-      <input type="file" accept="application/pdf" onChange={(e) => setJdFile(e.target.files[0])} />
-      <button onClick={handleStart} disabled={loading}>
-        {loading ? "Analyzing your profile..." : "Start Interview"}
-      </button>
+    <div>
+      <PageHead eyebrow="Step 1 of 3" title="Set up your interview" sub="Upload your resume and the job description you're preparing for." />
+      <Stepper steps={["Upload", "Interview", "Report"]} current={0} />
+      <div className="card">
+        <ErrorBox message={error} />
+        <Dropzone title="Resume (PDF)" hint="Your latest resume — skills and experience are extracted automatically." file={resumeFile} onPick={setResumeFile} onClear={() => setResumeFile(null)} inputId="resume-file" />
+        <div style={{ height: 6 }} />
+        <Dropzone title="Job description (PDF)" hint="The role you're targeting — questions are tailored to it." file={jdFile} onPick={setJdFile} onClear={() => setJdFile(null)} inputId="jd-file" />
+        <button className="btn primary block" onClick={handleStart} disabled={loading || !resumeFile || !jdFile}>
+          {loading ? <React.Fragment><Spinner /> {phase || "Working…"}</React.Fragment> : <React.Fragment>Start interview <Icon name="arrowRight" size={16} /></React.Fragment>}
+        </button>
+      </div>
     </div>
   );
 }
@@ -429,20 +922,26 @@ function UploadScreen({ onStarted }) {
 function ProfileSummary({ profile }) {
   if (!profile) return null;
   return (
-    <div className="card">
-      <h2>Your Profile</h2>
-      <div className="muted" style={{ marginBottom: 8 }}>Experience level: {profile.experience_level}</div>
+    <div className="card flat">
+      <div className="row" style={{ alignItems: "center", marginBottom: 10 }}>
+        <h2 style={{ margin: 0, flex: 1 }}>Your profile</h2>
+        {profile.experience_level && <span className="pill neutral">{profile.experience_level}</span>}
+      </div>
       <div style={{ marginBottom: 10 }}>
         {profile.candidate_skills && profile.candidate_skills.map((s, i) => (
           <span className="skill-tag" key={i}>{s}</span>
         ))}
       </div>
-      <div className="muted" style={{ marginBottom: 6 }}>Skill gaps for this role:</div>
-      <div>
-        {profile.skill_gaps && profile.skill_gaps.map((s, i) => (
-          <span className="skill-tag gap" key={i}>{s}</span>
-        ))}
-      </div>
+      {profile.skill_gaps && profile.skill_gaps.length > 0 && (
+        <React.Fragment>
+          <div className="muted" style={{ marginBottom: 6 }}>Focus areas for this role</div>
+          <div>
+            {profile.skill_gaps.map((s, i) => (
+              <span className="skill-tag gap" key={i}>{s}</span>
+            ))}
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 }
@@ -490,7 +989,7 @@ function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
       if (data.status === "completed") {
         onDone();
       } else {
-        onUpdate({ ...session, question: data.next_question });
+        onUpdate({ ...session, question: data.next_question, currentRound: data.current_round, roundPlan: data.round_plan || session.roundPlan, answeredCount: (session.answeredCount || 0) + 1 });
       }
     } catch (e) {
       setError(e.message || "Something went wrong.");
@@ -500,55 +999,81 @@ function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
   }
 
   const q = session.question;
+  const plan = session.roundPlan || ["intro", "domain", "hr"];
+  const roundLabels = { intro: "Intro", domain: "Domain", coding: "Coding", hr: "HR" };
+  const currentIdx = Math.max(0, plan.indexOf(session.currentRound || "intro"));
+  const DIMS = [
+    ["technical_accuracy", "Technical accuracy"],
+    ["depth", "Depth"],
+    ["communication", "Communication"],
+    ["problem_solving", "Problem solving"],
+    ["confidence", "Confidence"],
+  ];
 
   return (
-    <div className="card">
-      <div>
-        <span className="badge topic">{q.topic}</span>
-        <span className="badge difficulty">Difficulty {q.difficulty}/5</span>
-      </div>
-      <div className="question-row">
-        <div className="question-text">{q.text}</div>
-        <button className="icon-btn" onClick={() => playQuestionAudio(q.text, setVoiceStatus)} title="Replay question audio">
-          🔊
-        </button>
-      </div>
-      {voiceStatus && <div className="voice-status">{voiceStatus}</div>}
-      <ErrorBox message={error} />
-      <textarea
-        placeholder="Type your answer, or click the mic to speak it..."
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-      />
-      <div className="row tight">
-        <button
-          className={`mic-btn ${recorder.recording ? "recording" : ""}`}
-          onClick={recorder.toggle}
-        >
-          {recorder.recording ? "⏹ Stop Recording" : "🎤 Record Answer"}
-        </button>
-      </div>
-      {recorder.status && <div className="voice-status">{recorder.status}</div>}
-      <div className="row">
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Evaluating..." : "Submit Answer"}
-        </button>
-        <button className="secondary" onClick={onGoToCoding} disabled={loading}>
-          Switch to Coding Round
-        </button>
-      </div>
-
-      {lastEval && (
-        <div style={{ marginTop: 22, borderTop: "1px solid #334155", paddingTop: 18 }}>
-          <div className="muted">Last answer evaluation</div>
-          <div className="eval-grid">
-            <div className="eval-item"><div className="label">Technical</div><div className="value">{lastEval.technical_accuracy}</div></div>
-            <div className="eval-item"><div className="label">Depth</div><div className="value">{lastEval.depth}</div></div>
-            <div className="eval-item"><div className="label">Comms</div><div className="value">{lastEval.communication}</div></div>
-            <div className="eval-item"><div className="label">Overall</div><div className="value">{lastEval.overall}</div></div>
-          </div>
+    <div>
+      <PageHead eyebrow="Step 2 of 3" title="Interview in progress" sub={session.domain ? `Tailored to ${session.domain} · answers adapt in difficulty as you go.` : "Answer each question — difficulty adapts as you go."} />
+      <Stepper steps={plan.map((r) => roundLabels[r] || r)} current={currentIdx} />
+      <div className="card">
+        <ProctoringBar session={session} />
+        <div className="q-meta">
+          <span className="pill accent">{q.topic}</span>
+          <span className="pill neutral">Difficulty {q.difficulty}/5</span>
+          {session.currentRound && <span className="pill neutral" style={{ textTransform: "capitalize" }}>{session.currentRound} round</span>}
+          <span className="q-count">Question {Math.min((session.answeredCount || 0) + 1, 8)} of 8</span>
         </div>
-      )}
+        <div className="question-row">
+          <div className="question-text">{q.text}</div>
+          <button className="replay-btn" onClick={() => playQuestionAudio(q.text, setVoiceStatus)} title="Replay question audio">
+            <Icon name="speaker" size={17} />
+          </button>
+        </div>
+        {voiceStatus && <div className="voice-status">{voiceStatus}</div>}
+        <ErrorBox message={error} />
+        <div className="field" style={{ marginTop: 12 }}>
+          <textarea
+            placeholder="Type your answer, or record it with the microphone…"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+          />
+        </div>
+        <div className="answer-toolbar">
+          <button
+            className={`mic-btn ${recorder.recording ? "recording" : ""}`}
+            onClick={recorder.toggle}
+          >
+            {recorder.recording
+              ? <React.Fragment><Icon name="stop" size={14} /> Stop <span className="rec-timer"><span className="rec-dot" />{recorder.elapsed}s</span></React.Fragment>
+              : <React.Fragment><Icon name="mic" size={15} /> Record answer</React.Fragment>}
+          </button>
+          <span className="char-count">{answer.length} characters</span>
+        </div>
+        {recorder.status && <div className="voice-status">{recorder.status}</div>}
+        <div className="row">
+          <button className="btn primary" onClick={handleSubmit} disabled={loading || !answer.trim()}>
+            {loading ? <React.Fragment><Spinner /> Evaluating…</React.Fragment> : "Submit answer"}
+          </button>
+          {session.isTechnical !== false && (
+            <button className="btn secondary" onClick={onGoToCoding} disabled={loading}>
+              <Icon name="code" size={15} /> Coding round
+            </button>
+          )}
+        </div>
+
+        {lastEval && (
+          <div className="eval-block">
+            <div className="muted" style={{ fontWeight: 600 }}>How that answer scored</div>
+            {DIMS.filter(([k]) => lastEval[k] != null).map(([k, label]) => (
+              <Meter key={k} label={label} value={lastEval[k]} />
+            ))}
+            <div className="muted" style={{ marginTop: 8 }}>
+              {lastEval.decision === "increase_difficulty" && "Strong answer — the next question steps up."}
+              {lastEval.decision === "decrease_difficulty" && "Tough one — the next question eases off."}
+              {(lastEval.decision === "same" || lastEval.decision === "follow_up") && "Solid — holding this difficulty."}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -609,50 +1134,65 @@ function CodingScreen({ session, onBackToQA, onDone }) {
   }
 
   return (
-    <div className="card">
-      <div className="row" style={{ alignItems: "center", marginBottom: 6 }}>
-        <h2 style={{ margin: 0 }}>Coding Round</h2>
-      </div>
-      <ErrorBox message={error} />
+    <div>
+      <PageHead eyebrow="Technical round" title="Coding challenge" sub="Write Python that reads from stdin and prints to stdout. It runs against hidden test cases." />
+      <div className="card">
+        <ErrorBox message={error} />
 
-      {problem && (
-        <React.Fragment>
-          <div>
-            <span className="badge topic">{problem.topic}</span>
-            <span className="badge difficulty">Difficulty {problem.difficulty}/5</span>
-          </div>
-          <div className="question-text" style={{ fontSize: 15, whiteSpace: "pre-wrap" }}>{problem.description}</div>
-          <label>Your Python solution (read via input(), print via print())</label>
-          <textarea className="code" value={code} onChange={(e) => setCode(e.target.value)} spellCheck="false" />
-          <div className="row">
-            <button onClick={handleSubmit} disabled={loading}>{loading ? "Running your code..." : "Run & Submit"}</button>
-            <button className="secondary" onClick={loadProblem} disabled={loading}>Skip to Next Problem</button>
-          </div>
-        </React.Fragment>
-      )}
+        {!problem && !error && (
+          <div><div className="skeleton" style={{ height: 22, width: "45%" }} /><div className="skeleton" /><div className="skeleton" style={{ width: "70%" }} /></div>
+        )}
 
-      {result && (
-        <div style={{ marginTop: 22, borderTop: "1px solid #334155", paddingTop: 18 }}>
-          <div className="muted">Score: {result.score}/100 ({result.passed}/{result.total} test cases passed)</div>
-          {result.test_results.map((t, i) => (
-            <div key={i} className={`test-result ${t.passed ? "pass" : "fail"}`}>
-              <span className={`badge ${t.passed ? "pass" : "fail"}`}>{t.passed ? "PASS" : "FAIL"}</span>
-              input: {JSON.stringify(t.stdin)} | expected: {JSON.stringify(t.expected)} | got: {JSON.stringify(t.actual)}
-              {t.stderr && <div style={{ color: "#fca5a5", marginTop: 4 }}>error: {t.stderr}</div>}
+        {problem && (
+          <React.Fragment>
+            <div className="q-meta">
+              <span className="pill accent">{problem.topic}</span>
+              <span className="pill neutral">Difficulty {problem.difficulty}/5</span>
             </div>
-          ))}
-        </div>
-      )}
+            <div className="question-text" style={{ fontSize: 17 }}>{problem.title}</div>
+            <p className="muted" style={{ whiteSpace: "pre-wrap", margin: "10px 0 0" }}>{problem.description}</p>
+            <div className="code-toolbar">
+              <span className="lang">Python</span>
+              <span className="muted">stdin → stdout</span>
+              <span style={{ flex: 1 }} />
+              <button className="btn ghost sm" onClick={() => setCode("# Read input with input(), print output with print()\n")} disabled={loading}>Reset template</button>
+            </div>
+            <textarea className="code" value={code} onChange={(e) => setCode(e.target.value)} spellCheck="false" />
+            <div className="row">
+              <button className="btn primary" onClick={handleSubmit} disabled={loading || !code.trim()}>
+                {loading ? <React.Fragment><Spinner /> Running…</React.Fragment> : <React.Fragment><Icon name="code" size={15} /> Run & submit</React.Fragment>}
+              </button>
+              <button className="btn secondary" onClick={loadProblem} disabled={loading}>Skip problem</button>
+            </div>
+          </React.Fragment>
+        )}
 
-      <div className="row" style={{ marginTop: 18 }}>
-        <button className="secondary" onClick={onBackToQA}>Back to Q&A</button>
-        <button className="secondary" onClick={onDone}>Finish Interview & See Report</button>
+        {result && (
+          <div className="eval-block">
+            <div className="row" style={{ alignItems: "center", marginBottom: 10 }}>
+              <h2 style={{ margin: 0, flex: 1 }}>Results</h2>
+              <span className={`pill ${result.score >= 70 ? "success" : result.score > 0 ? "warning" : "danger"}`}>{result.score}/100 · {result.passed}/{result.total} passed</span>
+            </div>
+            {result.test_results.map((t, i) => (
+              <div key={i} className={`test-result ${t.passed ? "pass" : "fail"}`}>
+                <span className={`pill ${t.passed ? "success" : "danger"}`}>{t.passed ? "Pass" : "Fail"} · case {i + 1}</span>
+                <div style={{ marginTop: 6 }}>input: {JSON.stringify(t.stdin)} | expected: {JSON.stringify(t.expected)} | got: {JSON.stringify(t.actual)}</div>
+                {t.stderr && <div style={{ color: "#fca5a5", marginTop: 4 }}>error: {t.stderr}</div>}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="row divider">
+          <button className="btn ghost" onClick={onBackToQA}><Icon name="arrow" size={15} style={{ transform: "rotate(180deg)" }} /> Back to Q&A</button>
+          <button className="btn secondary" onClick={onDone}>Finish & see report</button>
+        </div>
       </div>
     </div>
   );
 }
 
-function ReportScreen({ session }) {
+function ReportScreen({ session, onRestart }) {
   const [report, setReport] = useState(null);
   const [error, setError] = useState("");
 
@@ -666,116 +1206,111 @@ function ReportScreen({ session }) {
       .catch((e) => setError(e.message));
   }, []);
 
-  if (error) return <div className="card"><ErrorBox message={error} /></div>;
-  if (!report) return <div className="card center muted">Loading your report...</div>;
+  if (error) return <div><PageHead eyebrow="Step 3 of 3" title="Your report" /><div className="card"><ErrorBox message={error} /></div></div>;
+  if (!report) return (
+    <div>
+      <PageHead eyebrow="Step 3 of 3" title="Your report" sub="Crunching your answers…" />
+      <div className="card"><div className="skeleton" style={{ height: 120 }} /><div className="skeleton" /><div className="skeleton" style={{ width: "60%" }} /></div>
+    </div>
+  );
+
+  const dims = ["technical_accuracy", "depth", "communication", "problem_solving", "confidence"];
+  const dimLabels = { technical_accuracy: "Technical accuracy", depth: "Depth", communication: "Communication", problem_solving: "Problem solving", confidence: "Confidence" };
+  const avg = (k) => {
+    const vals = report.history.map((h) => h.evaluation && h.evaluation[k]).filter((v) => v != null);
+    return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : null;
+  };
 
   return (
-    <React.Fragment>
-      <div className="card center">
-        <div className="muted">Overall Readiness</div>
-        <div className="score-big">{report.overall_readiness}%</div>
-        <div className="progress-bar"><div className="progress-fill" style={{ width: `${report.overall_readiness}%` }} /></div>
-        <div className="muted">{report.questions_answered} questions answered</div>
+    <div>
+      <PageHead eyebrow="Step 3 of 3" title="Your interview report" sub={`${report.questions_answered} questions answered · tailored to ${report.domain || "your role"}.`} />
+      <Stepper steps={["Upload", "Interview", "Report"]} current={2} />
+
+      <div className="card">
+        <div className="score-wrap">
+          <ScoreRing value={report.overall_readiness} />
+          <div style={{ flex: 1, minWidth: 220 }}>
+            <h2 style={{ margin: "0 0 4px" }}>Overall readiness</h2>
+            <p className="card-sub">
+              {report.overall_readiness >= 70 ? "Interview-ready. Keep sharpening your weakest dimension below."
+                : report.overall_readiness >= 40 ? "Getting there — focus on the lowest bars before the real thing."
+                : "A solid starting point. Work through the focus areas, then practice again."}
+            </p>
+            {dims.map((k) => {
+              const v = avg(k);
+              return v == null ? null : <Meter key={k} label={dimLabels[k]} value={v} />;
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="card">
-        <h2>Skill Gaps to Focus On</h2>
-        {report.skill_gaps.length === 0 && <div className="muted">No major gaps identified - nice work.</div>}
+        <h2>Focus areas</h2>
+        <p className="card-sub">Skills where the gap analysis suggests more preparation.</p>
+        {report.skill_gaps.length === 0 && <div className="muted">No major gaps identified — nice work.</div>}
         {report.skill_gaps.map((s, i) => <span className="skill-tag gap" key={i}>{s}</span>)}
       </div>
 
+      {report.proctoring_summary && report.proctoring_summary.total_events > 0 && (
+        <div className="card">
+          <h2>Session integrity</h2>
+          <p className="card-sub">{report.proctoring_summary.total_events} proctoring signal{report.proctoring_summary.total_events === 1 ? "" : "s"} recorded during this session.</p>
+          <div className="eval-grid">
+            <div className="eval-item"><div className="label">Tab switches</div><div className="value">{report.proctoring_summary.tab_switches}</div></div>
+            <div className="eval-item"><div className="label">Focus loss</div><div className="value">{report.proctoring_summary.focus_loss}</div></div>
+            <div className="eval-item"><div className="label">Fullscreen exits</div><div className="value">{report.proctoring_summary.fullscreen_exits}</div></div>
+            <div className="eval-item"><div className="label">Copy / paste</div><div className="value">{report.proctoring_summary.copy_paste}</div></div>
+          </div>
+        </div>
+      )}
+
       <div className="card">
-        <h2>Question-by-Question History</h2>
+        <h2>Question timeline</h2>
+        <p className="card-sub">Every question, your score, and the difficulty it was asked at.</p>
         {report.history.map((h, i) => (
-          <div key={i} style={{ marginBottom: 18, paddingBottom: 16, borderBottom: i < report.history.length - 1 ? "1px solid #334155" : "none" }}>
-            <div className="question-text" style={{ fontSize: 15 }}>{h.question_text}</div>
-            <div className="eval-grid">
-              <div className="eval-item"><div className="label">Overall</div><div className="value">{h.evaluation.overall}</div></div>
-              <div className="eval-item"><div className="label">Difficulty</div><div className="value">{h.difficulty}</div></div>
+          <div key={i} className="history-item">
+            <div className="hq">Q{i + 1}. {h.question_text}</div>
+            <div>
+              <span className={`pill ${h.evaluation.overall >= 70 ? "success" : h.evaluation.overall >= 40 ? "warning" : "danger"}`}>{h.evaluation.overall}/100</span>
+              <span className="pill neutral">Difficulty {h.difficulty}/5</span>
             </div>
+            {h.answer_text && <p className="hans">Your answer: {h.answer_text}</p>}
           </div>
         ))}
       </div>
-    </React.Fragment>
+
+      <button className="btn primary block" onClick={onRestart}>Practice again <Icon name="arrowRight" size={16} /></button>
+    </div>
   );
 }
 
-const SNAKE_COLORS = ["#3b82f6", "#ec4899", "#22c55e", "#f59e0b", "#8b5cf6"]; // blue, pink, green, amber, violet
-const SEGMENT_COUNT = 10;
-
 function LandingScreen({ onGetStarted }) {
-  const wrapRef = useRef(null);
-  const segRefs = useRef(Array.from({ length: SEGMENT_COUNT }, () => null));
-  const mouse = useRef({ x: 130, y: 40 });
-  const pos = useRef(Array.from({ length: SEGMENT_COUNT }, () => ({ x: 130, y: 40 })));
-  const prevPos = useRef(Array.from({ length: SEGMENT_COUNT }, () => ({ x: 130, y: 40 })));
-
-  const [colorIdx, setColorIdx] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => setColorIdx((i) => (i + 1) % SNAKE_COLORS.length), 2200);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    let frame;
-    // Each segment chases the one ahead of it (segment 0 chases the mouse),
-    // with speed decreasing down the chain - the classic "snake" trail setup.
-    function animate() {
-      for (let i = 0; i < SEGMENT_COUNT; i++) {
-        const target = i === 0 ? mouse.current : pos.current[i - 1];
-        const speed = 0.35 - i * 0.02;
-        prevPos.current[i] = { ...pos.current[i] };
-        pos.current[i].x += (target.x - pos.current[i].x) * Math.max(speed, 0.12);
-        pos.current[i].y += (target.y - pos.current[i].y) * Math.max(speed, 0.12);
-
-        const dx = pos.current[i].x - prevPos.current[i].x;
-        const dy = pos.current[i].y - prevPos.current[i].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-        const stretch = 1 + Math.min(dist, 30) / 10;
-
-        const el = segRefs.current[i];
-        if (el) {
-          el.style.transform =
-            `translate(${pos.current[i].x - 24}px, ${pos.current[i].y - 24}px) rotate(${angle}deg) scaleX(${stretch})`;
-        }
-      }
-      frame = requestAnimationFrame(animate);
-    }
-    animate();
-    return () => cancelAnimationFrame(frame);
-  }, []);
-
-  function handleMouseMove(e) {
-    const rect = wrapRef.current.getBoundingClientRect();
-    mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  }
-
-  const currentColor = SNAKE_COLORS[colorIdx];
-
+  const features = [
+    { icon: "mic", title: "Adaptive voice interviews", text: "Role-specific questions that adjust difficulty to your answers, with speech-to-text and spoken playback built in." },
+    { icon: "code", title: "Live coding round", text: "Technical roles get auto-selected problems with real test-case execution and scoring." },
+    { icon: "camera", title: "Proctored practice", text: "Camera presence plus tab-switch and focus signals, summarized on your final report." },
+  ];
   return (
     <div className="hero">
-      <div className="glass-btn-wrap" ref={wrapRef} onMouseMove={handleMouseMove}>
-        {Array.from({ length: SEGMENT_COUNT }).map((_, i) => {
-          // Head segments are bigger, tapering down toward the tail
-          const size = 48 - i * 2.4;
-          return (
-            <div
-              key={i}
-              ref={(el) => (segRefs.current[i] = el)}
-              className="glass-blob"
-              style={{
-                top: 0,
-                left: 0,
-                width: `${size}px`,
-                height: `${size}px`,
-                background: currentColor,
-              }}
-            />
-          );
-        })}
-        <button className="glass-btn" onClick={onGetStarted}>Intervexa</button>
+      <div className="hero-badge"><span className="pulse-dot" /> AI interview simulator</div>
+      <h1 className="hero-title">Practice interviews that <span className="grad">adapt to you.</span></h1>
+      <p className="hero-tagline">
+        Upload your resume and a job description. Intervexa builds a structured,
+        domain-specific interview — then scores every answer and shows exactly
+        where to improve.
+      </p>
+      <div className="hero-cta">
+        <button className="btn primary" onClick={onGetStarted}>Start practicing <Icon name="arrowRight" size={16} /></button>
+        <button className="btn secondary" onClick={onGetStarted}>Log in</button>
+      </div>
+      <div className="feature-grid">
+        {features.map((f) => (
+          <div className="feature-card" key={f.title}>
+            <span className="feature-icon"><Icon name={f.icon} size={19} /></span>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -786,6 +1321,7 @@ function LoginScreen({ onAuthenticated }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -811,35 +1347,313 @@ function LoginScreen({ onAuthenticated }) {
       localStorage.setItem("intervexa_name", data.name);
       onAuthenticated({ name: data.name, email: data.email, token: data.token });
     } catch (e) {
-      setError(e.message || "Something went wrong.");
+      setError(e.message === "Failed to fetch"
+        ? "Cannot reach the server. Start the backend first: open a terminal in virexa-backend and run “python main.py”, then try again."
+        : e.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="card" style={{ maxWidth: 420, margin: "60px auto" }}>
-      <h2>{mode === "login" ? "Log In" : "Create Your Account"}</h2>
-      <ErrorBox message={error} />
+    <div className="auth-wrap">
+      <div className="card auth-card">
+        <div className="brand" style={{ marginBottom: 18 }}><span className="brand-mark">Ix</span>Intervexa</div>
+        <h2 className="auth-title">{mode === "login" ? "Welcome back" : "Create your account"}</h2>
+        <p className="card-sub">{mode === "login" ? "Log in to continue practicing." : "One account for interviews and curation."}</p>
+        <ErrorBox message={error} />
 
-      {mode === "signup" && (
-        <React.Fragment>
-          <label>Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </React.Fragment>
-      )}
-      <label>Email</label>
-      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <label>Password</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div className="segmented" role="tablist">
+          <button className={mode === "login" ? "active" : ""} onClick={() => { setMode("login"); setError(""); }}>Log in</button>
+          <button className={mode === "signup" ? "active" : ""} onClick={() => { setMode("signup"); setError(""); }}>Sign up</button>
+        </div>
 
-      <button onClick={handleSubmit} disabled={loading} style={{ width: "100%" }}>
-        {loading ? "Please wait..." : mode === "login" ? "Log In" : "Sign Up"}
-      </button>
+        {mode === "signup" && (
+          <div className="field">
+            <label>Name</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" autoComplete="name" />
+          </div>
+        )}
+        <div className="field">
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+        </div>
+        <div className="field">
+          <label>Password</label>
+          <div className="input-with-toggle">
+            <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" autoComplete={mode === "login" ? "current-password" : "new-password"} />
+            <button type="button" className="toggle-vis" onClick={() => setShowPassword(!showPassword)} title={showPassword ? "Hide password" : "Show password"}>
+              <Icon name={showPassword ? "eyeOff" : "eye"} size={15} />
+            </button>
+          </div>
+        </div>
 
-      <div className="muted center" style={{ marginTop: 16, cursor: "pointer" }}
-           onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(""); }}>
-        {mode === "login" ? "Don't have an account? Sign up" : "Already have an account? Log in"}
+        <button className="btn primary block" onClick={handleSubmit} disabled={loading}>
+          {loading ? <React.Fragment><Spinner /> Please wait…</React.Fragment> : mode === "login" ? "Log in" : "Create account"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function AdminScreen({ onBack }) {
+  const token = localStorage.getItem("intervexa_token");
+  const [meta, setMeta] = useState({ topics: [], domains: [], statuses: [] });
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [filters, setFilters] = useState({ topic: "", status: "", q: "" });
+  const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const [loading, setLoading] = useState(false);
+  // create form
+  const [form, setForm] = useState({ topic: "", difficulty: 2, text: "", expected_concepts: "", domain: "" });
+  // generate form
+  const [gen, setGen] = useState({ domain: "", topic: "", difficulty: 2, count: 5, context: "" });
+
+  const headers = { "Content-Type": "application/json", "Authorization": `Bearer ${token}` };
+
+  async function loadMeta() {
+    try {
+      const res = await fetch(`${API}/admin/questions/topics`, { headers: { "Authorization": `Bearer ${token}` } });
+      if (res.ok) setMeta(await res.json());
+    } catch (e) {}
+  }
+
+  async function loadList() {
+    setLoading(true);
+    setError("");
+    try {
+      const params = new URLSearchParams({ limit: 50, offset: 0 });
+      if (filters.topic) params.set("topic", filters.topic);
+      if (filters.status) params.set("status", filters.status);
+      if (filters.q) params.set("q", filters.q);
+      const res = await fetch(`${API}/admin/questions?${params}`, { headers: { "Authorization": `Bearer ${token}` } });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Could not load questions.");
+      setItems(data.items);
+      setTotal(data.total);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => { loadMeta(); loadList(); }, []);
+
+  async function handleCreate() {
+    setError(""); setNotice("");
+    try {
+      const body = {
+        topic: form.topic,
+        difficulty: Number(form.difficulty),
+        text: form.text,
+        expected_concepts: form.expected_concepts.split(",").map((s) => s.trim()).filter(Boolean),
+        domain: form.domain || null,
+        status: "pending_review",
+      };
+      const res = await fetch(`${API}/admin/questions`, { method: "POST", headers, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Create failed.");
+      setNotice(`Created ${data.id} as pending_review.`);
+      setForm({ topic: "", difficulty: 2, text: "", expected_concepts: "", domain: "" });
+      loadList();
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  async function handleGenerate() {
+    setError(""); setNotice("");
+    try {
+      const body = {
+        domain: gen.domain || null,
+        topic: gen.topic || null,
+        difficulty: Number(gen.difficulty),
+        count: Number(gen.count),
+        context: gen.context || null,
+      };
+      const res = await fetch(`${API}/admin/questions/generate`, { method: "POST", headers, body: JSON.stringify(body) });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Generation failed.");
+      setNotice(`Generated ${data.created_count} draft(s), skipped ${data.skipped_duplicates} duplicate(s).`);
+      loadList();
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  async function handleReview(id, action) {
+    setError(""); setNotice("");
+    try {
+      const res = await fetch(`${API}/admin/questions/${id}/review`, {
+        method: "POST", headers, body: JSON.stringify({ action }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Review failed.");
+      setNotice(`${id} → ${data.status}.`);
+      loadList();
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  async function handleSeed() {
+    setError(""); setNotice("");
+    try {
+      const res = await fetch(`${API}/admin/questions/seed`, { method: "POST", headers });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Seed failed.");
+      setNotice(`Seed: ${data.imported} imported, ${data.skipped_duplicates} already present.`);
+      loadList();
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  return (
+    <div>
+      <PageHead eyebrow="Curation" title="Question bank" sub="Only active questions are served in interviews. Generated drafts need approval before they go live." />
+      <div className="card">
+        <ErrorBox message={error} />
+        {notice && <div className="notice-box">{notice}</div>}
+        <div className="admin-toolbar">
+          <div>
+            <label>Topic</label>
+            <select value={filters.topic} onChange={(e) => setFilters({ ...filters, topic: e.target.value })}>
+              <option value="">All topics</option>
+              {meta.topics.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div>
+            <label>Status</label>
+            <select value={filters.status} onChange={(e) => setFilters({ ...filters, status: e.target.value })}>
+              <option value="">All statuses</option>
+              {meta.statuses.map((s) => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div style={{ flex: 2 }}>
+            <label>Search</label>
+            <input type="text" value={filters.q} onChange={(e) => setFilters({ ...filters, q: e.target.value })} placeholder="Text or concept…" />
+          </div>
+          <div style={{ flex: "none" }}>
+            <label>&nbsp;</label>
+            <button className="btn secondary sm" style={{ marginTop: 0 }} onClick={loadList} disabled={loading}>
+              {loading ? <Spinner /> : <React.Fragment><Icon name="refresh" size={14} /> Refresh ({total})</React.Fragment>}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="card flat">
+        {items.length === 0 && !loading && <div className="muted">No questions match these filters.</div>}
+        {items.map((it) => (
+          <div key={it.id} className="q-row">
+            <div>
+              <span className="pill accent">{it.topic}</span>
+              <span className="pill neutral">D{it.difficulty}</span>
+              <span className={`pill status-pill ${it.status === "active" ? "success" : it.status === "rejected" || it.status === "archived" ? "danger" : "warning"}`}>{it.status.replace("_", " ")}</span>
+              {it.domain && <span className="pill neutral">{it.domain}</span>}
+              <span className="muted"> · {it.source} · {it.id}</span>
+            </div>
+            <div className="question-text" style={{ fontSize: 14.5, margin: "8px 0 4px" }}>{it.text}</div>
+            {it.expected_concepts && it.expected_concepts.length > 0 && (
+              <div className="muted" style={{ fontSize: 12.5 }}>Expects: {it.expected_concepts.join(", ")}</div>
+            )}
+            {it.review_note && <div className="muted" style={{ fontSize: 12.5 }}>Note: {it.review_note}</div>}
+            <div className="row tight" style={{ marginTop: 10 }}>
+              {(it.status === "draft" || it.status === "pending_review" || it.status === "rejected") && (
+                <button className="icon-btn" onClick={() => handleReview(it.id, "approve")}><Icon name="check" size={14} /> Approve</button>
+              )}
+              {(it.status === "draft" || it.status === "pending_review") && (
+                <button className="icon-btn" onClick={() => handleReview(it.id, "reject")}>Reject</button>
+              )}
+              {it.status === "active" && (
+                <button className="icon-btn" onClick={() => { if (window.confirm("Archive this question? It will stop being served.")) handleReview(it.id, "archive"); }}>Archive</button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <details className="collapsible">
+        <summary><Icon name="file" size={16} /> Create a question <span className="muted">— enters review as pending</span></summary>
+        <div className="collapsible-body">
+          <div className="field">
+            <label>Topic</label>
+            <select value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })}>
+              <option value="">Select…</option>
+              {meta.topics.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div className="field-row">
+            <div className="field">
+              <label>Difficulty (1–5)</label>
+              <input type="text" value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })} />
+            </div>
+            <div className="field">
+              <label>Domain (optional)</label>
+              <select value={form.domain} onChange={(e) => setForm({ ...form, domain: e.target.value })}>
+                <option value="">None</option>
+                {meta.domains.map((d) => <option key={d} value={d}>{d}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className="field">
+            <label>Question text</label>
+            <textarea value={form.text} onChange={(e) => setForm({ ...form, text: e.target.value })} placeholder="Write a clear, single interview question…" />
+          </div>
+          <div className="field">
+            <label>Expected concepts (comma-separated)</label>
+            <input type="text" value={form.expected_concepts} onChange={(e) => setForm({ ...form, expected_concepts: e.target.value })} />
+          </div>
+          <button className="btn primary" onClick={handleCreate}>Create for review</button>
+        </div>
+      </details>
+
+      <details className="collapsible">
+        <summary><Icon name="refresh" size={16} /> Generate with AI <span className="muted">— always lands as drafts, never auto-published</span></summary>
+        <div className="collapsible-body">
+          <div className="field-row">
+            <div className="field">
+              <label>Domain</label>
+              <select value={gen.domain} onChange={(e) => setGen({ ...gen, domain: e.target.value })}>
+                <option value="">None</option>
+                {meta.domains.map((d) => <option key={d} value={d}>{d}</option>)}
+              </select>
+            </div>
+            <div className="field">
+              <label>Topic</label>
+              <select value={gen.topic} onChange={(e) => setGen({ ...gen, topic: e.target.value })}>
+                <option value="">Auto (domain)</option>
+                {meta.topics.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
+            <div className="field">
+              <label>Difficulty</label>
+              <input type="text" value={gen.difficulty} onChange={(e) => setGen({ ...gen, difficulty: e.target.value })} />
+            </div>
+            <div className="field">
+              <label>Count (1–10)</label>
+              <input type="text" value={gen.count} onChange={(e) => setGen({ ...gen, count: e.target.value })} />
+            </div>
+          </div>
+          <div className="field">
+            <label>Extra context (optional)</label>
+            <input type="text" value={gen.context} onChange={(e) => setGen({ ...gen, context: e.target.value })} placeholder="e.g. focus on triage scenarios for ICU nurses" />
+          </div>
+          <button className="btn primary" onClick={handleGenerate}>Generate drafts</button>
+        </div>
+      </details>
+
+      <div className="card flat">
+        <div className="row" style={{ alignItems: "center" }}>
+          <div style={{ flex: 1 }}>
+            <h2 style={{ margin: 0 }}>Static bank import</h2>
+            <p className="card-sub" style={{ margin: "4px 0 0" }}>One-time migration of the built-in question list. Safe to re-run — duplicates are skipped.</p>
+          </div>
+          <button className="btn secondary sm" style={{ marginTop: 0 }} onClick={handleSeed}>Seed static bank</button>
+        </div>
       </div>
     </div>
   );
@@ -847,16 +1661,73 @@ function LoginScreen({ onAuthenticated }) {
 
 function App() {
   const [session, setSession] = useState(null);
+  // Start logged out: the stored token is only trusted after /me validates it.
   const [user, setUser] = useState(null);
-  const [screen, setScreen] = useState("landing"); // landing | login | upload | qa | coding | report
+  const [screen, setScreen] = useState("landing"); // landing | login | upload | qa | coding | report | admin
+
+  useEffect(() => {
+    const token = localStorage.getItem("intervexa_token");
+    if (!token) return;
+    fetch(`${API}/me`, { headers: { "Authorization": `Bearer ${token}` } })
+      .then((res) => {
+        if (!res.ok) throw new Error("invalid token");
+        return res.json();
+      })
+      .then((data) => {
+        const name = data.name || localStorage.getItem("intervexa_name") || "Account";
+        localStorage.setItem("intervexa_name", name);
+        setUser({ token, name, email: data.email });
+        setScreen((s) => (s === "landing" || s === "login" ? "upload" : s));
+      })
+      .catch(() => {
+        localStorage.removeItem("intervexa_token");
+        localStorage.removeItem("intervexa_name");
+        setUser(null);
+      });
+  }, []);
+
+  function handleLogout() {
+    localStorage.removeItem("intervexa_token");
+    localStorage.removeItem("intervexa_name");
+    setUser(null);
+    setSession(null);
+    setScreen("landing");
+  }
+
+  const initial = (user && user.name ? user.name : "U").trim().charAt(0).toUpperCase();
+  const inFlow = user && ["upload", "qa", "coding", "report"].includes(screen);
 
   return (
-    <div className="app">
+    <div>
       {screen !== "landing" && (
-        <div className="app-header">
-          <h1>Intervexa</h1>
-        </div>
+        <header className="navbar">
+          <div className="navbar-inner">
+            <div className="brand"><span className="brand-mark">Ix</span>Intervexa</div>
+            {inFlow && (
+              <nav className="nav-links">
+                <button className={`nav-link ${["upload", "qa", "coding"].includes(screen) ? "active" : ""}`} onClick={() => setScreen("upload")}>Interview</button>
+                <button className={`nav-link ${screen === "report" ? "active" : ""}`} onClick={() => { if (session) setScreen("report"); }}>Report</button>
+                <button className="nav-link" onClick={() => setScreen("admin")}>Curation</button>
+              </nav>
+            )}
+            {user && screen === "admin" && (
+              <nav className="nav-links">
+                <button className="nav-link" onClick={() => setScreen("upload")}>Interview</button>
+                <button className="nav-link active" onClick={() => {}}>Curation</button>
+              </nav>
+            )}
+            <div className="nav-spacer" />
+            {user && (
+              <div className="user-chip">
+                <span className="avatar">{initial}</span>
+                <span>{user.name}</span>
+                <button className="btn ghost sm" onClick={handleLogout} title="Log out"><Icon name="logout" size={14} /> Log out</button>
+              </div>
+            )}
+          </div>
+        </header>
       )}
+      <div className="app">
 
       {screen === "landing" && (
         <LandingScreen onGetStarted={() => setScreen("login")} />
@@ -894,8 +1765,13 @@ function App() {
       )}
 
       {screen === "report" && session && (
-        <ReportScreen session={session} />
+        <ReportScreen session={session} onRestart={() => { setSession(null); setScreen("upload"); }} />
       )}
+
+      {screen === "admin" && user && (
+        <AdminScreen onBack={() => setScreen("upload")} />
+      )}
+      </div>
     </div>
   );
 }

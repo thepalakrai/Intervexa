@@ -18,7 +18,10 @@ def find_question(topic_hint: str, difficulty: int, exclude_ids: list[str]) -> d
     to generating a question with the LLM in that case.
     """
     if not SEARCH_ENDPOINT or not SEARCH_KEY:
-        return None
+        return find_question_local(
+            topic_hint, difficulty, exclude_ids, allowed_topics=None,
+            exclude_text_hashes=None,
+        )
 
     url = f"{SEARCH_ENDPOINT.rstrip('/')}/indexes/{SEARCH_INDEX}/docs/search?api-version=2023-11-01"
 
@@ -50,4 +53,66 @@ def find_question(topic_hint: str, difficulty: int, exclude_ids: list[str]) -> d
         "topic": top["topic"],
         "difficulty": top["difficulty"],
         "text": top["text"],
+    }
+
+
+def find_question_local(
+    topic_hint: str,
+    difficulty: int,
+    exclude_ids: list[str] | None = None,
+    allowed_topics: list[str] | None = None,
+    exclude_text_hashes: set[str] | None = None,
+) -> dict | None:
+    """Local fallback over ``data.question_bank.QUESTIONS``.
+
+    Used when Azure AI Search is not configured (local dev) and as a
+    domain-filtered first pass even when it is. Enforces:
+
+    - difficulty within +/- 1 of target
+    - ``id`` not in ``exclude_ids``
+    - normalized text hash not in ``exclude_text_hashes`` (dedup, Phase 2)
+    - topic in ``allowed_topics`` when given (domain filter, Phase 2)
+    """
+    from data import question_bank
+
+    exclude_ids = set(exclude_ids or [])
+    exclude_text_hashes = exclude_text_hashes or set()
+    hint = (topic_hint or "").lower()
+
+    def _norm(text: str) -> str:
+        import hashlib
+        import re
+
+        cleaned = re.sub(r"[^a-z0-9 ]", "", (text or "").lower()).strip()
+        cleaned = re.sub(r"\s+", " ", cleaned)
+        return hashlib.sha256(cleaned.encode("utf-8")).hexdigest()
+
+    candidates = []
+    for i, q in enumerate(question_bank.QUESTIONS):
+        qid = q.get("id") or f"bank_{i}"
+        if qid in exclude_ids:
+            continue
+        if _norm(q.get("text", "")) in exclude_text_hashes:
+            continue
+        if allowed_topics and q.get("topic") not in allowed_topics:
+            continue
+        if abs(int(q.get("difficulty", 3)) - difficulty) > 1:
+            continue
+        topic_lower = str(q.get("topic", "")).lower()
+        score = 0
+        if hint and (hint in topic_lower or topic_lower in hint):
+            score = 2
+        elif hint and any(w in topic_lower for w in hint.split() if len(w) > 3):
+            score = 1
+        candidates.append((score, abs(int(q.get("difficulty", 3)) - difficulty), i, q, qid))
+
+    if not candidates:
+        return None
+    candidates.sort(key=lambda c: (-c[0], c[1], c[2]))
+    _, _, _, best, best_id = candidates[0]
+    return {
+        "id": best_id,
+        "topic": best.get("topic", "General"),
+        "difficulty": best.get("difficulty", difficulty),
+        "text": best.get("text", ""),
     }

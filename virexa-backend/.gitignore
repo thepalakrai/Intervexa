@@ -1,0 +1,7 @@
+# # Local / environment-specific files - never commit.
+# .env
+# data/questions_curated.json
+# __pycache__/
+# */__pycache__/
+# *.pyc
+# venv/

@@ -8,6 +8,7 @@ DATABASE_NAME = os.getenv("COSMOS_DATABASE", "virexa")
 USERS_CONTAINER = os.getenv("COSMOS_CONTAINER_USERS", "users")
 SESSIONS_CONTAINER = os.getenv("COSMOS_CONTAINER_SESSIONS", "sessions")
 EVALUATIONS_CONTAINER = os.getenv("COSMOS_CONTAINER_EVALUATIONS", "evaluations")
+QUESTIONS_CONTAINER = os.getenv("COSMOS_CONTAINER_QUESTIONS", "questions")
 
 _client = None
 
@@ -34,6 +35,12 @@ def get_evaluations_container():
 def get_users_container():
     db = get_client().get_database_client(DATABASE_NAME)
     return db.get_container_client(USERS_CONTAINER)
+
+
+def get_questions_container():
+    """Curated question bank. Partition key is /topic (see question_store)."""
+    db = get_client().get_database_client(DATABASE_NAME)
+    return db.get_container_client(QUESTIONS_CONTAINER)
 
 
 def create_user(user_dict: dict) -> dict:
