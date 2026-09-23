@@ -988,6 +988,14 @@ function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
 
       if (data.status === "completed") {
         onDone();
+      } else if (data.status === "round_complete" && data.next_round === "coding") {
+        // Domain round finished via quota → auto-navigate to coding screen.
+        // Mark domainComplete=true so the coding screen knows back→domain is not allowed.
+        onUpdate({ ...session, currentRound: "coding", domainComplete: true, roundPlan: data.round_plan || session.roundPlan, answeredCount: (session.answeredCount || 0) + 1 });
+        onGoToCoding();
+      } else if (data.status === "round_complete") {
+        // e.g. domain → hr (non-technical), or coding → hr.
+        onUpdate({ ...session, question: data.next_question, currentRound: data.current_round || data.next_round, roundPlan: data.round_plan || session.roundPlan, answeredCount: (session.answeredCount || 0) + 1 });
       } else {
         onUpdate({ ...session, question: data.next_question, currentRound: data.current_round, roundPlan: data.round_plan || session.roundPlan, answeredCount: (session.answeredCount || 0) + 1 });
       }
@@ -1053,11 +1061,21 @@ function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
           <button className="btn primary" onClick={handleSubmit} disabled={loading || !answer.trim()}>
             {loading ? <React.Fragment><Spinner /> Evaluating…</React.Fragment> : "Submit answer"}
           </button>
-          {session.isTechnical !== false && (
-            <button className="btn secondary" onClick={onGoToCoding} disabled={loading}>
-              <Icon name="code" size={15} /> Coding round
-            </button>
-          )}
+          {(() => {
+            // Show the "Coding round" button only when:
+            // 1. This is a technical role (coding is in the plan), AND
+            // 2. The coding round hasn't been reached yet
+            //    (current round comes BEFORE coding in the plan)
+            const plan = session.roundPlan || [];
+            const codingIdx = plan.indexOf("coding");
+            const currentIdx = plan.indexOf(session.currentRound);
+            const codingAhead = codingIdx !== -1 && currentIdx !== -1 && currentIdx < codingIdx;
+            return codingAhead ? (
+              <button className="btn secondary" onClick={onGoToCoding} disabled={loading}>
+                <Icon name="code" size={15} /> Coding round
+              </button>
+            ) : null;
+          })()}
         </div>
 
         {lastEval && (
@@ -1078,12 +1096,13 @@ function InterviewScreen({ session, onUpdate, onDone, onGoToCoding }) {
   );
 }
 
-function CodingScreen({ session, onBackToQA, onDone }) {
+function CodingScreen({ session, onBackToQA, onGoToHR, onDone }) {
   const [problem, setProblem] = useState(null);
   const [code, setCode] = useState("# Read input with input(), print output with print()\n");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
+  const [codingRoundComplete, setCodingRoundComplete] = useState(false);
 
   async function loadProblem() {
     setLoading(true);
@@ -1093,10 +1112,12 @@ function CodingScreen({ session, onBackToQA, onDone }) {
       const res = await fetch(`${API}/next-coding-problem/${session.candidateId}/${session.sessionId}`);
       const data = await res.json();
       if (data.message) {
+        // All problems exhausted — coding round is complete.
         setProblem(null);
-        setError(data.message);
+        setCodingRoundComplete(true);
       } else {
         setProblem(data);
+        setCodingRoundComplete(false);
         setCode("# Read input with input(), print output with print()\n");
       }
     } catch (e) {
@@ -1107,6 +1128,26 @@ function CodingScreen({ session, onBackToQA, onDone }) {
   }
 
   useEffect(() => { loadProblem(); }, []);
+
+  async function handleSkip() {
+    if (!problem) return;
+    setLoading(true);
+    setError("");
+    try {
+      await fetch(`${API}/skip-coding-problem`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: session.sessionId,
+          candidate_id: session.candidateId,
+          problem_id: problem.id,
+        }),
+      });
+    } catch (_) {
+      // Non-fatal — still try to advance to the next problem.
+    }
+    await loadProblem();
+  }
 
   async function handleSubmit() {
     setLoading(true);
@@ -1126,6 +1167,9 @@ function CodingScreen({ session, onBackToQA, onDone }) {
       if (!res.ok) throw new Error("Code submission failed - check the server terminal.");
       const data = await res.json();
       setResult(data);
+      // Immediately try to load the next problem after a short delay so the
+      // candidate can read the result before the screen resets.
+      setTimeout(() => loadProblem(), 1800);
     } catch (e) {
       setError(e.message || "Something went wrong.");
     } finally {
@@ -1139,11 +1183,17 @@ function CodingScreen({ session, onBackToQA, onDone }) {
       <div className="card">
         <ErrorBox message={error} />
 
-        {!problem && !error && (
+        {!problem && !codingRoundComplete && !error && (
           <div><div className="skeleton" style={{ height: 22, width: "45%" }} /><div className="skeleton" /><div className="skeleton" style={{ width: "70%" }} /></div>
         )}
 
-        {problem && (
+        {codingRoundComplete && (
+          <div className="notice-box" style={{ marginBottom: 12 }}>
+            All coding problems completed. Ready to continue to the HR round.
+          </div>
+        )}
+
+        {problem && !codingRoundComplete && (
           <React.Fragment>
             <div className="q-meta">
               <span className="pill accent">{problem.topic}</span>
@@ -1162,7 +1212,7 @@ function CodingScreen({ session, onBackToQA, onDone }) {
               <button className="btn primary" onClick={handleSubmit} disabled={loading || !code.trim()}>
                 {loading ? <React.Fragment><Spinner /> Running…</React.Fragment> : <React.Fragment><Icon name="code" size={15} /> Run & submit</React.Fragment>}
               </button>
-              <button className="btn secondary" onClick={loadProblem} disabled={loading}>Skip problem</button>
+              <button className="btn secondary" onClick={handleSkip} disabled={loading}>Skip problem</button>
             </div>
           </React.Fragment>
         )}
@@ -1184,8 +1234,29 @@ function CodingScreen({ session, onBackToQA, onDone }) {
         )}
 
         <div className="row divider">
-          <button className="btn ghost" onClick={onBackToQA}><Icon name="arrow" size={15} style={{ transform: "rotate(180deg)" }} /> Back to Q&A</button>
-          <button className="btn secondary" onClick={onDone}>Finish & see report</button>
+          {!session.domainComplete && !codingRoundComplete && (
+            <button className="btn ghost" onClick={async () => {
+              try {
+                await fetch(`${API}/set-round`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    session_id: session.sessionId,
+                    candidate_id: session.candidateId,
+                    round_name: "domain",
+                  }),
+                });
+              } catch (_) {}
+              onBackToQA("domain");
+            }}>
+              <Icon name="arrow" size={15} style={{ transform: "rotate(180deg)" }} /> Back to Domain
+            </button>
+          )}
+          {codingRoundComplete ? (
+            <button className="btn primary" onClick={onGoToHR}>Continue to HR round <Icon name="arrowRight" size={16} /></button>
+          ) : (
+            <button className="btn secondary" onClick={onGoToHR}>Skip to HR round</button>
+          )}
         </div>
       </div>
     </div>
@@ -1705,7 +1776,27 @@ function App() {
             <div className="brand"><span className="brand-mark">Ix</span>Intervexa</div>
             {inFlow && (
               <nav className="nav-links">
-                <button className={`nav-link ${["upload", "qa", "coding"].includes(screen) ? "active" : ""}`} onClick={() => setScreen("upload")}>Interview</button>
+                <button className={`nav-link ${["upload", "qa", "coding"].includes(screen) ? "active" : ""}`} onClick={async () => {
+                  if (screen === "coding") {
+                    try {
+                      await fetch(`${API}/set-round`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          session_id: session.sessionId,
+                          candidate_id: session.candidateId,
+                          round_name: "hr",
+                        }),
+                      });
+                    } catch (_) {}
+                    setSession((s) => s ? { ...s, currentRound: "hr" } : s);
+                    setScreen("qa");
+                  } else if (screen === "qa") {
+                    // already here, no-op
+                  } else {
+                    setScreen("upload");
+                  }
+                }}>Interview</button>
                 <button className={`nav-link ${screen === "report" ? "active" : ""}`} onClick={() => { if (session) setScreen("report"); }}>Report</button>
                 <button className="nav-link" onClick={() => setScreen("admin")}>Curation</button>
               </nav>
@@ -1752,14 +1843,35 @@ function App() {
           session={session}
           onUpdate={setSession}
           onDone={() => setScreen("report")}
-          onGoToCoding={() => setScreen("coding")}
+          onGoToCoding={() => {
+            setSession({ ...session, currentRound: "coding", domainComplete: false });
+            setScreen("coding");
+          }}
         />
       )}
 
       {screen === "coding" && session && (
         <CodingScreen
           session={session}
-          onBackToQA={() => setScreen("qa")}
+          onBackToQA={(round) => {
+            setSession({ ...session, currentRound: round || "domain", domainComplete: false });
+            setScreen("qa");
+          }}
+          onGoToHR={async () => {
+            try {
+              await fetch(`${API}/set-round`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  session_id: session.sessionId,
+                  candidate_id: session.candidateId,
+                  round_name: "hr",
+                }),
+              });
+            } catch (_) {}
+            setSession({ ...session, currentRound: "hr" });
+            setScreen("qa");
+          }}
           onDone={() => setScreen("report")}
         />
       )}

@@ -262,12 +262,25 @@ def submit_answer(req: AnswerRequest):
 
     evaluation = evaluator.evaluate_answer(req.question_text, req.answer_text)
 
+    # Backfill round_plan / domain for sessions created before the round engine.
+    domain = session.get("domain")
+    if not domain:
+        domain = role_config.detect_domain("", session["profile"])
+        session["domain"] = domain
+    if "round_plan" not in session or "is_technical" not in session:
+        session["is_technical"] = role_config.is_technical_role("", session["profile"], domain)
+        session["round_plan"] = role_config.build_round_plan(session["is_technical"])
+
+    current_round = session.get("current_round", "intro")
+
+    # Tag the history entry with its round so planner can count per-round quotas.
     session["history"].append({
         "question_id": req.question_id,
         "question_text": req.question_text,
         "answer_text": req.answer_text,
         "evaluation": evaluation,
         "difficulty": session["current_difficulty"],
+        "round": current_round,
     })
 
     # Save evaluation as its own record too, useful later for the skill-gap dashboard
@@ -279,51 +292,81 @@ def submit_answer(req: AnswerRequest):
         **evaluation,
     })
 
-    if planner.is_interview_complete(session["history"]):
-        session["status"] = "completed"
+    new_difficulty = planner.next_difficulty(session["current_difficulty"], evaluation["decision"])
+    round_plan = session["round_plan"]
+
+    # -----------------------------------------------------------------------
+    # Round-plan-driven transition (replaces old hardcoded index logic).
+    #
+    # We check whether THIS answer is the one that filled the quota — i.e.
+    # the count BEFORE appending was exactly quota-1.  This is critical so
+    # that going back from the coding screen to domain (where domain history
+    # already has 4 entries) does NOT immediately fire round_complete again
+    # on every subsequent answer.
+    # -----------------------------------------------------------------------
+    quota = planner.ROUND_QUOTAS.get(current_round, 0)
+    count_before = planner.questions_answered_in_round(session["history"], current_round) - 1
+    round_just_completed = (quota > 0 and count_before == quota - 1)
+
+    if round_just_completed:
+        next_round_name = role_config.next_round(round_plan, current_round)
+
+        if next_round_name is None or current_round == "hr":
+            # All rounds done — interview complete.
+            session["status"] = "completed"
+            cosmos.update_session(session)
+            return {
+                "status": "completed",
+                "evaluation": evaluation,
+                "message": "Interview complete. Call /final-report to see the full results.",
+            }
+
+        # Advance to the next round.
+        session["current_round"] = next_round_name
+        session["current_difficulty"] = new_difficulty
+        cosmos.update_session(session)
+
+        if next_round_name == "coding":
+            # Coding is handled by /next-coding-problem; signal the frontend to switch screens.
+            return {
+                "status": "round_complete",
+                "next_round": "coding",
+                "evaluation": evaluation,
+                "round_plan": round_plan,
+            }
+
+        # Next round is a Q&A round (hr after domain for non-technical, or hr after coding).
+        next_question = interviewer.generate_next_question(
+            session["profile"], session["history"], new_difficulty,
+            domain=domain, round_name=next_round_name,
+        )
+        session["current_question"] = next_question
         cosmos.update_session(session)
         return {
-            "status": "completed",
+            "status": "round_complete",
+            "next_round": next_round_name,
+            "next_question": next_question,
             "evaluation": evaluation,
-            "message": "Interview complete. Call /final-report to see the full results.",
+            "current_round": next_round_name,
+            "round_plan": round_plan,
         }
 
-    new_difficulty = planner.next_difficulty(session["current_difficulty"], evaluation["decision"])
-
-    # Phase 1+2: round-aware next question. Q&A covers intro -> domain ->
-    # hr; the coding round (when in round_plan) is a separate section via
-    # /next-coding-problem, never injected here (fixes #6 domain->HR skip
-    # confusion and #4 coding-for-non-technical).
-    domain = session.get("domain")
-    if not domain:  # backfill for sessions started before the round engine
-        domain = role_config.detect_domain("", session["profile"])
-        session["domain"] = domain
-    if "round_plan" not in session or "is_technical" not in session:
-        session["is_technical"] = role_config.is_technical_role("", session["profile"], domain)
-        session["round_plan"] = role_config.build_round_plan(session["is_technical"])
-    next_index = len(session["history"])  # 0-based index of the upcoming question
-    if next_index >= planner.TOTAL_QUESTIONS - 1:
-        next_round = "hr"
-    elif next_index == 0:
-        next_round = "intro"
-    else:
-        next_round = "domain"
+    # Current round still has quota remaining — serve the next question in the same round.
     next_question = interviewer.generate_next_question(
         session["profile"], session["history"], new_difficulty,
-        domain=domain, round_name=next_round,
+        domain=domain, round_name=current_round,
     )
 
     session["current_difficulty"] = new_difficulty
     session["current_question"] = next_question
-    session["current_round"] = next_round
     cosmos.update_session(session)
 
     return {
         "status": "in_progress",
         "evaluation": evaluation,
         "next_question": next_question,
-        "current_round": next_round,
-        "round_plan": session["round_plan"],
+        "current_round": current_round,
+        "round_plan": round_plan,
     }
 
 
@@ -370,6 +413,30 @@ def final_report(candidate_id: str, session_id: str):
 
 from data import coding_problems
 from data.coding_problems import CODING_PROBLEMS
+
+
+class SetRoundRequest(BaseModel):
+    session_id: str
+    candidate_id: str
+    round_name: str  # the round to advance to, e.g. "hr"
+
+
+@app.post("/set-round")
+def set_round(req: SetRoundRequest):
+    """
+    Syncs the backend session's current_round with the frontend navigation.
+    Called whenever the frontend navigates between rounds outside of the
+    normal /answer flow (e.g. coding → HR via the 'Continue to HR' button).
+    """
+    session = cosmos.get_session(req.session_id, req.candidate_id)
+    if session is None:
+        raise HTTPException(status_code=404, detail="Session not found.")
+    allowed = session.get("round_plan", [])
+    if req.round_name not in allowed:
+        raise HTTPException(status_code=400, detail=f"'{req.round_name}' is not in this session's round plan.")
+    session["current_round"] = req.round_name
+    cosmos.update_session(session)
+    return {"ok": True, "current_round": req.round_name}
 
 
 class SubmitCodeRequest(BaseModel):
@@ -428,6 +495,10 @@ def next_coding_problem(candidate_id: str, session_id: str):
         if h["question_id"].startswith("cp_")
     ]
 
+    # Enforce the per-session coding quota (default 2 problems).
+    if len(already_attempted) >= planner.CODING_PROBLEM_QUOTA:
+        return {"message": "All coding problems have been attempted this session."}
+
     problem = coding_problems.pick_problem(
         session["profile"], session["current_difficulty"], already_attempted
     )
@@ -441,6 +512,57 @@ def next_coding_problem(candidate_id: str, session_id: str):
         "difficulty": problem["difficulty"],
         "description": problem["description"],
     }
+
+
+class SkipCodingProblemRequest(BaseModel):
+    session_id: str
+    candidate_id: str
+    problem_id: str
+
+
+@app.post("/skip-coding-problem")
+def skip_coding_problem(req: SkipCodingProblemRequest):
+    """
+    Records the current coding problem as skipped (zero score) in the
+    session history so that /next-coding-problem excludes it on the next
+    call.  Does NOT run the code or call Judge0.
+    """
+    problem = next((p for p in CODING_PROBLEMS if p["id"] == req.problem_id), None)
+    if problem is None:
+        raise HTTPException(status_code=404, detail="Coding problem not found.")
+
+    session = cosmos.get_session(req.session_id, req.candidate_id)
+    if session is None:
+        raise HTTPException(status_code=404, detail="Session not found.")
+
+    if session.get("is_technical") is False:
+        raise HTTPException(
+            status_code=403,
+            detail="Coding round is not part of this interview (non-technical role).",
+        )
+
+    # Check it hasn't already been recorded (idempotent).
+    already = [h["question_id"] for h in session["history"]]
+    if req.problem_id not in already:
+        session["history"].append({
+            "question_id": problem["id"],
+            "question_text": f"[Coding] {problem['title']}",
+            "answer_text": "[skipped]",
+            "evaluation": {
+                "technical_accuracy": 0,
+                "depth": 0,
+                "communication": None,
+                "problem_solving": 0,
+                "confidence": None,
+                "overall": 0,
+                "decision": "same",
+            },
+            "difficulty": problem["difficulty"],
+            "skipped": True,
+        })
+        cosmos.update_session(session)
+
+    return {"ok": True, "skipped_id": req.problem_id}
 
 
 @app.post("/submit-code")

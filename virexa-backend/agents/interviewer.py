@@ -38,23 +38,26 @@ You are given:
 - A candidate profile (skills, skill gaps, experience level)
 - The interview history so far (questions asked, answers given, evaluations)
 - A target difficulty level (1=Beginner, 2=Easy, 3=Medium, 4=Hard, 5=Expert)
+- The current_round and allowed_topics fields — you MUST stay within them
 
 Your job: generate the SINGLE next interview question.
 
 Rules:
 - Ask ONE question at a time. Never ask multiple questions in one turn.
 - Match the question to the target difficulty level.
-- Prioritize topics from the candidate's skill_gaps and required_skills.
-- If the previous answer was weak, you may ask a simpler follow-up on the SAME topic
-  instead of jumping to a new one (e.g. "Let's step back - can you explain X?").
+- CRITICAL: If allowed_topics is provided, you MUST only ask about topics in that list.
+  For the "hr" round, allowed_topics will be ["HR", "HR Recruitment", "Project"] —
+  do NOT ask technical questions (no SQL, Python, coding, algorithms, etc.).
+  HR round questions must be behavioural, situational, or about the candidate's
+  background, goals, teamwork, strengths/weaknesses, and career motivations.
+- If the previous answer was weak, you may ask a simpler follow-up on the SAME topic.
 - If the previous answer was strong, you may go deeper on the same topic or move to
-  a new required skill.
-- Vary between HR, resume/project, and technical topics rather than only technical.
+  a related allowed topic.
 - Never repeat a question already in the history.
 
 Respond ONLY with a JSON object, no prose, no markdown fences:
 {
-  "topic": "short topic label, e.g. 'Java Collections' or 'HR'",
+  "topic": "short topic label, e.g. 'HR' or 'Project'",
   "text": "the actual question text to show the candidate"
 }
 """
@@ -96,11 +99,16 @@ def allowed_topics_for_domain(domain: str | None, round_name: str) -> list[str] 
     return None
 
 
-def _pick_topic_hint(profile: dict, history: list[dict]) -> str:
+def _pick_topic_hint(profile: dict, history: list[dict], round_name: str = "domain") -> str:
     """
     Picks which topic to search for next - favors skill_gaps/required_skills
     that have come up least often so far in this session.
+
+    For the HR round, always returns "HR" so the bank search stays on-topic.
     """
+    if round_name == "hr":
+        return "HR"
+
     candidate_topics = list(profile.get("skill_gaps", [])) + list(profile.get("required_skills", []))
     if not candidate_topics:
         candidate_topics = ["Data Analysis", "SQL", "Python"]
@@ -139,8 +147,12 @@ def generate_next_question(
     """
     already_asked_ids = [h.get("question_id") for h in history if h.get("question_id")]
     seen_hashes = asked_hashes(history)
-    topic_hint = _pick_topic_hint(profile, history)
+    topic_hint = _pick_topic_hint(profile, history, round_name)
     allowed = allowed_topics_for_domain(domain, round_name)
+
+    # For HR round, always use a domain value so allowed_topics is populated.
+    if round_name == "hr" and not domain:
+        domain = "General"
 
     try:
         from services import question_store
