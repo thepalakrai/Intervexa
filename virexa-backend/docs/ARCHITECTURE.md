@@ -47,6 +47,9 @@ frontend (`virexa-backend/frontend/index.html`, served statically at `/`).
 | Bank data | `data/question_bank.py`, `data/coding_problems.py` |
 | STT/TTS | `services/speech.py` |
 | Sessions | `services/cosmos.py` |
+| Secrets (Key Vault + .env) | `services/secrets.py` (`get`, `status`, `load_into_env`; `AZURE_KEY_VAULT_URL`) |
+| Foundry Agent registry | `services/foundry_agent.py` (4 agent definitions, playground test, portal export, deployment info) |
+| Foundry workflow API | `main.py` (`/foundry/status`, `/foundry/agents*`, `/foundry/deployment`, `/secrets/status`) |
 | Frontend | `frontend/index.html` (`UploadScreen`, `InterviewScreen`, `CodingScreen`, `ReportScreen`, `ProctoringBar`, `useVoiceRecorder`) |
 
 ## Session document
@@ -93,3 +96,22 @@ on first `/answer` / coding call.
 - UI: `AdminScreen` in `frontend/index.html` (header button on the
   upload screen when logged in) — browse/filter, approve/reject/archive,
   create form, AI-generate form, one-click seed.
+
+## Foundry workflow coverage (slide-gap closure)
+
+- `services/secrets.py` — Key Vault first (`AZURE_KEY_VAULT_URL` +
+  `DefaultAzureCredential`), `.env` / App Settings fallback. Warmed into
+  `os.environ` at startup in `main.py`; `GET /secrets/status` shows the
+  source per secret without leaking values.
+- `services/foundry_agent.py` — 4 agent definitions mirroring the portal:
+  `virexa-interviewer`, `virexa-evaluator`, `virexa-profile-analyzer`,
+  `virexa-admin-generator`. Instructions are imported live from
+  `agents/` + `services/ai_service` (versioned via
+  `INSTRUCTIONS_VERSION`); tools mirror the FastAPI integrations
+  (AI Search + curated store, Judge0, Cosmos, Blob, Speech).
+  `playground_export()` emits the portal copy-paste pack for the optional
+  screenshot upgrade; `deployment_info()` documents the production path
+  (FastAPI app, not a Foundry-hosted endpoint).
+- `GET /foundry/status` returns the 1–8 + Key Vault + Functions table
+  judges check; `POST /foundry/agents/{name}/test` is the in-app
+  playground.

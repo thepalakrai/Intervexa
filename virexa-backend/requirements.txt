@@ -10,3 +10,5 @@ PyJWT==2.9.0
 pydantic==2.9.2
 python-dotenv==1.0.1
 pypdf==5.0.1
+azure-identity==1.17.1
+azure-keyvault-secrets==4.9.0

@@ -12,9 +12,17 @@ from pydantic import BaseModel, Field
 
 from services import storage, cosmos, judge0, speech, auth, question_store
 from services import ai_service as foundry
+from services import secrets as secrets_service, foundry_agent
 from agents import interviewer, evaluator, planner
 from agents import role_config
 from models.candidate import UploadResponse
+
+# Key Vault warm-up (best-effort): pulls vault values into env when
+# AZURE_KEY_VAULT_URL is set; otherwise the app runs on .env / App Settings.
+try:
+    secrets_service.load_into_env()
+except Exception:
+    pass
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -69,6 +77,70 @@ app.add_middleware(
 @app.get("/health")
 def health_check():
     return {"status": "ok", "service": "virexa-backend"}
+
+
+# ---------------------------------------------------------------------------
+# Foundry workflow + secrets (slide coverage: agent lifecycle, Key Vault)
+# ---------------------------------------------------------------------------
+
+@app.get("/foundry/status")
+def foundry_status():
+    """Slide steps 1-8 -> done/partial + how (judge-ready)."""
+    return {
+        "workflow": "Connect -> instruct -> tools -> test -> iterate -> ship in an app",
+        "model_deployment": os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4.1-mini"),
+        "steps": foundry_agent.workflow_coverage(),
+    }
+
+
+@app.get("/foundry/agents")
+def foundry_list_agents():
+    """The 4 Foundry Agent definitions (portal-mirror)."""
+    return {"agents": foundry_agent.list_agents()}
+
+
+@app.get("/foundry/agents/{agent_name}")
+def foundry_get_agent(agent_name: str):
+    agent = foundry_agent.get_agent(agent_name)
+    if agent is None:
+        raise HTTPException(status_code=404, detail="Unknown agent.")
+    return agent
+
+
+@app.get("/foundry/agents/{agent_name}/export")
+def foundry_export_agent(agent_name: str):
+    """Copy-paste pack for the optional portal upgrade (create agent in
+    portal -> test in playground -> screenshot)."""
+    pack = foundry_agent.playground_export(agent_name)
+    if pack is None:
+        raise HTTPException(status_code=404, detail="Unknown agent.")
+    return pack
+
+
+class FoundryTestRequest(BaseModel):
+    message: str
+
+
+@app.post("/foundry/agents/{agent_name}/test")
+def foundry_test_agent(agent_name: str, req: FoundryTestRequest):
+    """In-app playground: run an agent's instructions against a message."""
+    try:
+        return foundry_agent.test_agent(agent_name, req.message)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Unknown agent.")
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Agent test failed: {e}")
+
+
+@app.get("/foundry/deployment")
+def foundry_deployment():
+    return foundry_agent.deployment_info()
+
+
+@app.get("/secrets/status")
+def secrets_status():
+    """Where each secret resolves from (env vs Key Vault). No values leaked."""
+    return secrets_service.status()
 
 
 @app.post("/upload-resume", response_model=UploadResponse)
