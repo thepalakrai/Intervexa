@@ -37,10 +37,54 @@ def chat(system_prompt: str, user_message: str, json_mode: bool = False) -> str:
         body["response_format"] = {"type": "json_object"}
 
     response = requests.post(url, headers=headers, json=body, timeout=60)
-    response.raise_for_status()  # raises a clear error with Azure's actual message if this fails
+    if not response.ok:
+        err_msg = f"Azure OpenAI Error {response.status_code}: {response.text}"
+        try:
+            err_data = response.json().get("error", {})
+            msg = err_data.get("message", response.text)
+            code = err_data.get("code", "")
+            inner = err_data.get("innererror", {})
+            if code == "content_filter":
+                filt = inner.get("content_filter_result", {})
+                pii = filt.get("personally_identifiable_information", {})
+                detected = [
+                    sub.get("sub_category")
+                    for sub in pii.get("sub_categories", [])
+                    if sub.get("filtered") or sub.get("detected")
+                ]
+                err_msg = (
+                    f"Azure Content Filter Blocked Request: {msg}\n"
+                    f"Detected PII subcategories: {detected}\n"
+                    "TIP: Disable the PII content filter on deployment 'gpt-4.1-mini' in Azure OpenAI Studio."
+                )
+            else:
+                err_msg = f"Azure OpenAI Error ({code or response.status_code}): {msg}"
+        except Exception:
+            pass
+        raise RuntimeError(err_msg)
 
     data = response.json()
     return data["choices"][0]["message"]["content"]
+
+
+def _sanitize_for_prompt(text: str) -> str:
+    """
+    Strips obvious PII (emails, phone numbers, URLs) and replaces the abbreviation
+    'JD' (which Azure PII entity recognizer flags as personal initials) with
+    'Job Description' to minimize content filter rejections.
+    """
+    if not text:
+        return ""
+    import re
+    # Mask emails
+    text = re.sub(r'[\w\.-]+@[\w\.-]+\.\w+', '[REDACTED_EMAIL]', text)
+    # Mask phone numbers
+    text = re.sub(r'(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', '[REDACTED_PHONE]', text)
+    # Mask links
+    text = re.sub(r'https?://\S+|www\.\S+', '[REDACTED_LINK]', text)
+    # Replace standalone abbreviation JD
+    text = re.sub(r'\bJD\b', 'Job Description', text)
+    return text
 
 
 def analyze_profile(resume_text: str, jd_text: str) -> dict:
@@ -54,7 +98,10 @@ def analyze_profile(resume_text: str, jd_text: str) -> dict:
         "skill_gaps (list of strings), experience_level (string, one of "
         "'entry-level', 'mid-level', 'senior'). No prose, no markdown fences, JSON only."
     )
-    user_message = f"RESUME:\n{resume_text}\n\nJOB DESCRIPTION:\n{jd_text}"
+    clean_resume = _sanitize_for_prompt(resume_text)
+    clean_jd = _sanitize_for_prompt(jd_text)
+    user_message = f"RESUME:\n{clean_resume}\n\nJOB DESCRIPTION:\n{clean_jd}"
 
     raw = chat(system_prompt, user_message, json_mode=True)
     return json.loads(raw)
+
